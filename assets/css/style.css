@@ -236,13 +236,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .hero-text h1 .credentials { font-weight: 500; color: var(--text-soft); }
 
 .pub-title { display: block; font-weight: 600; }
-.pub-authors .me {
-  color: var(--text);
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 2px;
-}
+.pub-authors .me { text-decoration: underline; text-underline-offset: 2px; }
 .pub-title a { color: var(--text); }
 .pub-title a:hover { color: var(--accent); text-decoration: underline; }
 .pub-authors { display: block; color: var(--text-soft); font-size: 0.94rem; }
