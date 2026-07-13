@@ -39,8 +39,8 @@ layout: default
     My research focuses on somatic and cancer evolution, with a particular interest in
     how genomic instability — including aneuploidy and extrachromosomal DNA (ecDNA) —
     drives tumour initiation, progression, and recurrence. I am especially keen on
-    integrating spatial multi-omic approaches with histo-morphological to better
-    understand these processes in clinically relevant contexts.
+    integrating spatial multi-omic approaches with histo-morphological features to
+    better understand these processes in clinically relevant contexts.
   </p>
   <p>
     I’m always interested in new collaborations and ideas at the intersection of genomic
@@ -141,6 +141,21 @@ layout: default
         <span class="pub-authors">{{ pub.authors }}</span>
         <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
         {% if pub.pdf %}<span class="pub-links"><a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a></span>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </details>
+  {% endif %}
+
+  {% if site.data.collaborative and site.data.collaborative.size > 0 %}
+  <details class="more pub-collab">
+    <summary>Collaborative &amp; consortium publications</summary>
+    <ol class="pub-list">
+      {% for pub in site.data.collaborative %}
+      <li class="pub">
+        <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
+        <span class="pub-authors">{{ pub.authors }}</span>
+        <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
       </li>
       {% endfor %}
     </ol>

@@ -1,0 +1,112 @@
+# ---------------------------------------------------------------------------
+# Collaborative / consortium publications (group-authored).
+# Verified against PubMed (July 2026). Newest first. `authors` = the study group.
+# ---------------------------------------------------------------------------
+
+- title: "The impact of obesity on rates of post-operative CSF leak following endoscopic skull base surgery: results from a prospective international multi-centre cohort study"
+  authors: "CRANIAL Consortium"
+  venue: "Frontiers in Endocrinology"
+  year: 2024
+  doi: "10.3389/fendo.2024.1353494"
+
+- title: "Machine learning driven prediction of cerebrospinal fluid rhinorrhoea following endonasal skull base surgery: a multicentre prospective observational study"
+  authors: "CRANIAL Consortium"
+  venue: "Frontiers in Oncology"
+  year: 2023
+  doi: "10.3389/fonc.2023.1046519"
+
+- title: "CSF rhinorrhoea after endonasal intervention to the skull base (CRANIAL): a multicentre prospective observational study"
+  authors: "CRANIAL Consortium"
+  venue: "Frontiers in Oncology"
+  year: 2023
+  doi: "10.3389/fonc.2022.1049627"
+
+- title: "Casemix, management, and mortality of patients receiving emergency neurosurgery for traumatic brain injury in the Global Neurotrauma Outcomes Study: a prospective observational cohort study"
+  authors: "Global Neurotrauma Outcomes Study Collaborative"
+  venue: "The Lancet Neurology"
+  year: 2022
+  doi: "10.1016/S1474-4422(22)00037-0"
+
+- title: "Elective surgery cancellations due to the COVID-19 pandemic: global predictive modelling to inform surgical recovery plans"
+  authors: "COVIDSurg Collaborative"
+  venue: "British Journal of Surgery"
+  year: 2020
+  doi: "10.1002/bjs.11746"
+
+- title: "Predicting the difficult laparoscopic cholecystectomy: development and validation of a pre-operative risk score using an objective operative difficulty grading system"
+  authors: "West Midlands Research Collaborative"
+  venue: "Surgical Endoscopy"
+  year: 2020
+  doi: "10.1007/s00464-019-07244-5"
+
+- title: "Prospective observational cohort study on grading the severity of postoperative complications in global surgery research"
+  authors: "International Surgical Outcomes Study (ISOS) Group"
+  venue: "British Journal of Surgery"
+  year: 2019
+  doi: "10.1002/bjs.11025"
+
+- title: "Utilisation of an operative difficulty grading scale for laparoscopic cholecystectomy"
+  authors: "CholeS Study Group"
+  venue: "Surgical Endoscopy"
+  year: 2019
+  doi: "10.1007/s00464-018-6281-2"
+
+- title: "The surgical safety checklist and patient outcomes after surgery: a prospective observational cohort study, systematic review and meta-analysis"
+  authors: "International Surgical Outcomes Study (ISOS) Group"
+  venue: "British Journal of Anaesthesia"
+  year: 2018
+  doi: "10.1016/j.bja.2017.08.002"
+
+- title: "The development and validation of a scoring tool to predict the operative duration of elective laparoscopic cholecystectomy"
+  authors: "CholeS Study Group"
+  venue: "Surgical Endoscopy"
+  year: 2018
+  doi: "10.1007/s00464-018-6030-6"
+
+- title: "In-hospital clinical outcomes after upper gastrointestinal surgery: data from an international observational study"
+  authors: "International Surgical Outcomes Study (ISOS) Group"
+  venue: "European Journal of Surgical Oncology"
+  year: 2017
+  doi: "10.1016/j.ejso.2017.08.002"
+
+- title: "Use of failure-to-rescue to identify international variation in postoperative care in low-, middle- and high-income countries: a 7-day cohort study of elective surgery"
+  authors: "International Surgical Outcomes Study (ISOS) Group"
+  venue: "British Journal of Anaesthesia"
+  year: 2017
+  doi: "10.1093/bja/aex185"
+
+- title: "Critical care admission following elective surgery was not associated with survival benefit: prospective analysis of data from 27 countries"
+  authors: "International Surgical Outcomes Study (ISOS) Group"
+  venue: "Intensive Care Medicine"
+  year: 2017
+  doi: "10.1007/s00134-016-4633-8"
+
+- title: "The management and outcome for patients with chronic subdural hematoma: a prospective, multicenter, observational cohort study in the United Kingdom"
+  authors: "British Neurosurgical Trainee Research Collaborative"
+  venue: "Journal of Neurosurgery"
+  year: 2017
+  doi: "10.3171/2016.8.JNS16134"
+
+- title: "Global patient outcomes after elective surgery: prospective cohort study in 27 low-, middle- and high-income countries"
+  authors: "International Surgical Outcomes Study (ISOS) Group"
+  venue: "British Journal of Anaesthesia"
+  year: 2016
+  doi: "10.1093/bja/aew316"
+
+- title: "Population-based cohort study of variation in the use of emergency cholecystectomy for benign gallbladder diseases"
+  authors: "CholeS Study Group"
+  venue: "British Journal of Surgery"
+  year: 2016
+  doi: "10.1002/bjs.10288"
+
+- title: "Population-based cohort study of outcomes following cholecystectomy for benign gallbladder diseases"
+  authors: "CholeS Study Group"
+  venue: "British Journal of Surgery"
+  year: 2016
+  doi: "10.1002/bjs.10287"
+
+- title: "Preoperative risk factors for conversion from laparoscopic to open cholecystectomy: a validated risk score derived from a prospective UK database of 8820 patients"
+  authors: "CholeS Study Group"
+  venue: "HPB (Oxford)"
+  year: 2016
+  doi: "10.1016/j.hpb.2016.07.015"

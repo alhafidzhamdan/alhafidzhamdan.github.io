@@ -261,6 +261,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .more[open] > summary::after { content: " ▴"; }
 .more > summary:hover { color: var(--accent-soft); }
 .more .pub-list { margin-top: 1.1rem; }
+.pub-collab { margin-top: 1.6rem; }
 
 /* Footer ------------------------------------------------------------------ */
 .site-footer {
