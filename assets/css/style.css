@@ -158,22 +158,47 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .bio { padding: 0.5rem 0 2.5rem; }
 .bio p { margin: 0 0 1rem; }
 
-/* Research grid ----------------------------------------------------------- */
-.research-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 1rem;
+/* Research themes (accordion) --------------------------------------------- */
+.research-themes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
   margin-top: 1.5rem;
 }
-.research-card {
+.research-item {
   background: var(--bg-soft);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 1.1rem 1.2rem;
+  transition: border-color 0.15s ease;
 }
-.research-card h3 { margin: 0 0 0.45rem; font-size: 1.02rem; font-weight: 600; }
-.research-card h3:only-child { margin: 0; }
-.research-card p { margin: 0; font-size: 0.94rem; color: var(--text-soft); }
+.research-item[open] { border-color: var(--accent); }
+.research-item > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem 1.2rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.research-item > summary::-webkit-details-marker { display: none; }
+.research-item > summary::after {
+  content: "+";
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--text-soft);
+  line-height: 1;
+}
+.research-item[open] > summary::after { content: "–"; color: var(--accent); }
+.research-item > summary:hover { color: var(--accent); }
+.research-item > p {
+  margin: 0;
+  padding: 0 1.2rem 1.1rem;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
 
 /* Publications ------------------------------------------------------------ */
 .scholar-stats {
