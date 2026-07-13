@@ -11,9 +11,10 @@ layout: default
   <div class="hero-text">
     <h1>{{ site.author.name }}</h1>
     <p class="role">{{ site.author.role }}</p>
-    <p class="affiliation">{% if site.author.affiliation_url %}<a href="{{ site.author.affiliation_url }}" target="_blank" rel="noopener">{{ site.author.affiliation }}</a>{% else %}{{ site.author.affiliation }}{% endif %}</p>
+    <p class="affiliation">{{ site.author.affiliation }}</p>
 
     <div class="social">
+      {% if site.author.email != "" %}<a href="mailto:{{ site.author.email }}" aria-label="Email" title="Email">Email</a>{% endif %}
       {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">Scholar</a>{% endif %}
       {% if site.social.orcid != "" %}<a href="{{ site.social.orcid }}" aria-label="ORCID" title="ORCID" target="_blank" rel="noopener">ORCID</a>{% endif %}
       {% if site.social.github != "" %}<a href="{{ site.social.github }}" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">GitHub</a>{% endif %}
@@ -66,19 +67,19 @@ layout: default
 <!-- ============================ PUBLICATIONS ============================ -->
 <section id="publications" class="section">
   <h2>Publications</h2>
+  {% if site.data.scholar %}
+  <a class="scholar-stats" href="{{ site.social.scholar }}" target="_blank" rel="noopener"
+     title="Google Scholar metrics — as of {{ site.data.scholar.as_of }}">
+    <span class="stat"><span class="stat-label">Citations:</span> <span class="stat-num">{{ site.data.scholar.citations }}</span></span>
+    <span class="stat"><span class="stat-label">h-index:</span> <span class="stat-num">{{ site.data.scholar.h_index }}</span></span>
+    <span class="stat"><span class="stat-label">i10-index:</span> <span class="stat-num">{{ site.data.scholar.i10_index }}</span></span>
+  </a>
+  {% endif %}
+
   <p class="section-lead">
     Selected publications. For the full list, please visit my
     <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a> page.
   </p>
-
-  {% if site.data.scholar %}
-  <a class="scholar-stats" href="{{ site.social.scholar }}" target="_blank" rel="noopener"
-     title="Google Scholar metrics — as of {{ site.data.scholar.as_of }}">
-    <span class="stat"><span class="stat-num">{{ site.data.scholar.citations }}</span><span class="stat-label">Citations</span></span>
-    <span class="stat"><span class="stat-num">{{ site.data.scholar.h_index }}</span><span class="stat-label">h-index</span></span>
-    <span class="stat"><span class="stat-num">{{ site.data.scholar.i10_index }}</span><span class="stat-label">i10-index</span></span>
-  </a>
-  {% endif %}
 
   <ol class="pub-list">
     {% for pub in site.data.publications limit: 5 %}
@@ -106,13 +107,4 @@ layout: default
     </ol>
   </details>
   {% endif %}
-</section>
-
-<!-- ============================ CONTACT ============================ -->
-<section id="contact" class="section">
-  <h2>Contact</h2>
-  <p>
-    <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a><br>
-    {% if site.author.affiliation_url %}<a href="{{ site.author.affiliation_url }}" target="_blank" rel="noopener">{{ site.author.affiliation }}</a>{% else %}{{ site.author.affiliation }}{% endif %}
-  </p>
 </section>
