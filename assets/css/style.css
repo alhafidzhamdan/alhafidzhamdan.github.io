@@ -2,7 +2,7 @@
    Theme tokens
    ========================================================================== */
 :root {
-  --max-width: 760px;
+  --max-width: 912px;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
 }
