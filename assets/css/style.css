@@ -2,7 +2,7 @@
    Theme tokens
    ========================================================================== */
 :root {
-  --max-width: 912px;
+  --max-width: 1094px;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
 }
@@ -148,7 +148,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
   display: flex;
   align-items: center;
   gap: 2rem;
-  padding: 3rem 0 1.5rem;
+  padding: 4.4rem 0 2.8rem;
 }
 .hero-photo img {
   width: 150px;
