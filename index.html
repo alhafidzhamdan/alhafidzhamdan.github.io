@@ -11,7 +11,7 @@ layout: default
   <div class="hero-text">
     <h1>{{ site.author.name }}</h1>
     <p class="role">{{ site.author.role }}</p>
-    <p class="affiliation">{{ site.author.affiliation }}</p>
+    <p class="affiliation">{% if site.author.affiliation_url %}<a href="{{ site.author.affiliation_url }}" target="_blank" rel="noopener">{{ site.author.affiliation }}</a>{% else %}{{ site.author.affiliation }}{% endif %}</p>
 
     <div class="social">
       {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">Scholar</a>{% endif %}
@@ -71,6 +71,15 @@ layout: default
     <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a> page.
   </p>
 
+  {% if site.data.scholar %}
+  <a class="scholar-stats" href="{{ site.social.scholar }}" target="_blank" rel="noopener"
+     title="Google Scholar metrics — as of {{ site.data.scholar.as_of }}">
+    <span class="stat"><span class="stat-num">{{ site.data.scholar.citations }}</span><span class="stat-label">Citations</span></span>
+    <span class="stat"><span class="stat-num">{{ site.data.scholar.h_index }}</span><span class="stat-label">h-index</span></span>
+    <span class="stat"><span class="stat-num">{{ site.data.scholar.i10_index }}</span><span class="stat-label">i10-index</span></span>
+  </a>
+  {% endif %}
+
   <ol class="pub-list">
     {% for pub in site.data.publications limit: 5 %}
     <li class="pub">
@@ -104,6 +113,6 @@ layout: default
   <h2>Contact</h2>
   <p>
     <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a><br>
-    {{ site.author.affiliation }}
+    {% if site.author.affiliation_url %}<a href="{{ site.author.affiliation_url }}" target="_blank" rel="noopener">{{ site.author.affiliation }}</a>{% else %}{{ site.author.affiliation }}{% endif %}
   </p>
 </section>
