@@ -123,7 +123,7 @@ layout: default
   </p>
 
   <ol class="pub-list">
-    {% for pub in site.data.publications limit: 5 %}
+    {% for pub in site.data.publications limit: 6 %}
     <li class="pub">
       <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
       <span class="pub-authors">{{ pub.authors | replace: 'Hamdan A', '<span class="me">Hamdan A</span>' }}</span>
@@ -133,11 +133,11 @@ layout: default
     {% endfor %}
   </ol>
 
-  {% if site.data.publications.size > 5 %}
+  {% if site.data.publications.size > 6 %}
   <details class="more">
     <summary>More…</summary>
-    <ol class="pub-list" start="6">
-      {% for pub in site.data.publications offset: 5 %}
+    <ol class="pub-list" start="7">
+      {% for pub in site.data.publications offset: 6 %}
       <li class="pub">
         <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
         <span class="pub-authors">{{ pub.authors | replace: 'Hamdan A', '<span class="me">Hamdan A</span>' }}</span>
