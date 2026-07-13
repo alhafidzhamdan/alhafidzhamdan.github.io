@@ -129,6 +129,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .section-split > .split-label,
 .split-aside > .split-label { margin: 0; }
 .split-content > *:first-child { margin-top: 0; }
+.split-content > *:last-child { margin-bottom: 0; }
 /* Scholar metrics stacked in the Publications left column */
 .split-aside .scholar-stats {
   flex-direction: column;
