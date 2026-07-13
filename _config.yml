@@ -12,6 +12,7 @@ description: >-
 # Your details ---------------------------------------------------------------
 author:
   name: Alhafidz Hamdan
+  credentials: MBBS PhD                     # post-nominals shown after the name in the header
   role: ECAT SCREDS Clinical Lecturer & Honorary Pathology Resident
   affiliation: "Cancer Research UK Scotland Centre, Edinburgh"
   email: alhafidz.hamdan@ed.ac.uk          # shown in the Contact section

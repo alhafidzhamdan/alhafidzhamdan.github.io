@@ -9,7 +9,7 @@ layout: default
          onerror="this.style.display='none'">
   </div>
   <div class="hero-text">
-    <h1>{{ site.author.name }}</h1>
+    <h1>{{ site.author.name }}{% if site.author.credentials %}<span class="credentials">, {{ site.author.credentials }}</span>{% endif %}</h1>
     <p class="role">{{ site.author.role }}</p>
     <p class="affiliation">{{ site.author.affiliation }}</p>
 
@@ -124,7 +124,7 @@ layout: default
     {% for pub in site.data.publications limit: 5 %}
     <li class="pub">
       <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
-      <span class="pub-authors">{{ pub.authors }}</span>
+      <span class="pub-authors">{{ pub.authors | replace: 'Hamdan A', '<span class="me">Hamdan A</span>' }}</span>
       <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
       {% if pub.pdf %}<span class="pub-links"><a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a></span>{% endif %}
     </li>
@@ -138,7 +138,7 @@ layout: default
       {% for pub in site.data.publications offset: 5 %}
       <li class="pub">
         <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
-        <span class="pub-authors">{{ pub.authors }}</span>
+        <span class="pub-authors">{{ pub.authors | replace: 'Hamdan A', '<span class="me">Hamdan A</span>' }}</span>
         <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
         {% if pub.pdf %}<span class="pub-links"><a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a></span>{% endif %}
       </li>
@@ -154,7 +154,7 @@ layout: default
       {% for pub in site.data.collaborative %}
       <li class="pub">
         <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
-        <span class="pub-authors">{{ pub.authors }}</span>
+        <span class="pub-authors">{{ pub.authors | replace: 'Hamdan A', '<span class="me">Hamdan A</span>' }}</span>
         <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
       </li>
       {% endfor %}
