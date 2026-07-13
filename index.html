@@ -67,12 +67,12 @@ layout: default
 <section id="publications" class="section">
   <h2>Publications</h2>
   <p class="section-lead">
-    Selected publications{% if site.social.scholar != "" %}; a full list is available on
-    <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a>{% endif %}.
+    Selected publications. For the full list, please visit my
+    <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a> page.
   </p>
 
   <ol class="pub-list">
-    {% for pub in site.data.publications %}
+    {% for pub in site.data.publications limit: 10 %}
     <li class="pub">
       <span class="pub-title">{{ pub.title }}</span>
       <span class="pub-authors">{{ pub.authors }}</span>
@@ -85,6 +85,26 @@ layout: default
     </li>
     {% endfor %}
   </ol>
+
+  {% if site.data.publications.size > 10 %}
+  <details class="more">
+    <summary>More…</summary>
+    <ol class="pub-list" start="11">
+      {% for pub in site.data.publications offset: 10 %}
+      <li class="pub">
+        <span class="pub-title">{{ pub.title }}</span>
+        <span class="pub-authors">{{ pub.authors }}</span>
+        <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
+        <span class="pub-links">
+          {% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">DOI</a>{% endif %}
+          {% if pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">Link</a>{% endif %}
+          {% if pub.pdf %}<a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a>{% endif %}
+        </span>
+      </li>
+      {% endfor %}
+    </ol>
+  </details>
+  {% endif %}
 </section>
 
 <!-- ============================ CONTACT ============================ -->
