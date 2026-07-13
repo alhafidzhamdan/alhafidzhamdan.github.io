@@ -122,15 +122,25 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 /* Two-column sections: heading in a narrow left column, content on the right */
 .section-split {
   display: grid;
-  grid-template-columns: 130px 1fr;
+  grid-template-columns: 150px 1fr;
   gap: 2.5rem;
   align-items: start;
 }
-.section-split > .split-label { margin: 0; }
+.section-split > .split-label,
+.split-aside > .split-label { margin: 0; }
 .split-content > *:first-child { margin-top: 0; }
+/* Scholar metrics stacked in the Publications left column */
+.split-aside .scholar-stats {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 1.1rem 0 0;
+}
 @media (max-width: 640px) {
   .section-split { display: block; }
-  .section-split > .split-label { margin-bottom: 1.1rem; }
+  .section-split > .split-label,
+  .split-aside { margin-bottom: 1.1rem; }
+  .split-aside .scholar-stats { margin-bottom: 0; }
 }
 
 /* Hero -------------------------------------------------------------------- */
