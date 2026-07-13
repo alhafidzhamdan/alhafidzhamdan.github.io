@@ -15,7 +15,7 @@ author:
   role: ECAT SCREDS Clinical Lecturer & Honorary Specialty Trainee in Pathology
   affiliation: University of Edinburgh
   email: alhafidzhamdan@gmail.com          # shown in the Contact section
-  photo: /assets/img/profile.svg           # replace with /assets/img/profile.jpg (your headshot)
+  photo: /assets/img/profile.jpg           # your headshot
 
 # Social / academic links (leave a value blank to hide that icon) -------------
 social:
