@@ -20,15 +20,15 @@ author:
 # Social / academic links (leave a value blank to hide that icon) -------------
 social:
   scholar:   "https://scholar.google.com/citations?hl=en&user=8jqigrkAAAAJ"   # Google Scholar profile URL
-  orcid:     ""                            # ORCID URL, e.g. https://orcid.org/0000-...
-  github:    ""                            # https://github.com/yourusername
-  twitter:   ""                            # https://twitter.com/yourhandle  (or X)
+  orcid:     "https://orcid.org/0000-0002-0794-5504"                          # ORCID URL
+  github:    "https://github.com/alhafidzhamdan"                              # GitHub profile
+  twitter:   "https://x.com/AlhafidzHamdan"                                   # X (Twitter) profile
   linkedin:  ""                            # https://www.linkedin.com/in/...
   bluesky:   ""                            # https://bsky.app/profile/...
 
 # Deployment -----------------------------------------------------------------
 # For a USER site (repo named  <username>.github.io) leave these as-is.
-url: "https://username.github.io"          # <-- change username to your GitHub username
+url: "https://alhafidzhamdan.github.io"
 baseurl: ""
 
 # Build settings -------------------------------------------------------------
