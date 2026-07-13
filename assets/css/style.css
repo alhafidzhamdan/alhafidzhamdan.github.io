@@ -300,6 +300,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
   color: var(--text-soft);
   font-size: 0.86rem;
 }
+.site-footer { text-align: right; }
 .site-footer p { margin: 0.25rem 0; }
 .footer-note a { color: var(--text-soft); text-decoration: underline; }
 
