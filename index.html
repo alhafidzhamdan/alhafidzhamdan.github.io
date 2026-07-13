@@ -26,8 +26,8 @@ layout: default
 
 <section class="bio">
   <p>
-    I am an <strong>ECAT SCREDS Clinical Lecturer</strong> and Honorary Specialty Trainee
-    in Pathology at the <strong>University of Edinburgh</strong>. My work sits at the
+    I am an <strong>ECAT SCREDS Clinical Lecturer</strong> and Honorary Pathology
+    Resident at the <strong>University of Edinburgh</strong>. My work sits at the
     interface of diagnostic pathology and biomedical research.
   </p>
   <p>
@@ -72,34 +72,26 @@ layout: default
   </p>
 
   <ol class="pub-list">
-    {% for pub in site.data.publications limit: 10 %}
+    {% for pub in site.data.publications limit: 5 %}
     <li class="pub">
-      <span class="pub-title">{{ pub.title }}</span>
+      <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
       <span class="pub-authors">{{ pub.authors }}</span>
       <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
-      <span class="pub-links">
-        {% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">DOI</a>{% endif %}
-        {% if pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">Link</a>{% endif %}
-        {% if pub.pdf %}<a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a>{% endif %}
-      </span>
+      {% if pub.pdf %}<span class="pub-links"><a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a></span>{% endif %}
     </li>
     {% endfor %}
   </ol>
 
-  {% if site.data.publications.size > 10 %}
+  {% if site.data.publications.size > 5 %}
   <details class="more">
     <summary>More…</summary>
-    <ol class="pub-list" start="11">
-      {% for pub in site.data.publications offset: 10 %}
+    <ol class="pub-list" start="6">
+      {% for pub in site.data.publications offset: 5 %}
       <li class="pub">
-        <span class="pub-title">{{ pub.title }}</span>
+        <span class="pub-title">{% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% elsif pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}</span>
         <span class="pub-authors">{{ pub.authors }}</span>
         <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
-        <span class="pub-links">
-          {% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">DOI</a>{% endif %}
-          {% if pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">Link</a>{% endif %}
-          {% if pub.pdf %}<a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a>{% endif %}
-        </span>
+        {% if pub.pdf %}<span class="pub-links"><a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a></span>{% endif %}
       </li>
       {% endfor %}
     </ol>
