@@ -182,6 +182,16 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .social svg { width: 23px; height: 23px; display: block; }
 
 .bio p { margin: 0 0 1rem; }
+.cta {
+  margin-top: 1.4rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.cta strong { color: var(--text); }
 
 /* Research themes (accordion) --------------------------------------------- */
 .research-themes {
