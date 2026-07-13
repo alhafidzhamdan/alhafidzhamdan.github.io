@@ -8,3 +8,6 @@ Gemfile.lock
 
 # Claude Code local settings
 .claude/
+
+# Local render preview
+_preview.html
