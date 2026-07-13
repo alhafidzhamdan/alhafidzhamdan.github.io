@@ -1,0 +1,18 @@
+# ---------------------------------------------------------------------------
+# Publications  —  add one entry per paper (newest first).
+# Only `title` is required. Add `doi`, `url`, or `pdf` to show link buttons.
+# ---------------------------------------------------------------------------
+
+- title: "Add your paper title here"
+  authors: "Hamdan A, Co-author B, Co-author C"
+  venue: "Journal Name"
+  year: 2025
+  doi: ""            # e.g. 10.1038/s41586-024-00000-0  (no https://doi.org/ prefix)
+  url: ""            # optional alternative link
+  pdf: ""            # optional local PDF, e.g. /assets/pdf/paper.pdf
+
+- title: "Add another paper title here"
+  authors: "Co-author A, Hamdan A, Co-author C"
+  venue: "Journal Name"
+  year: 2024
+  doi: ""

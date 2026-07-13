@@ -1,0 +1,97 @@
+---
+layout: default
+---
+
+<!-- ============================ ABOUT / HERO ============================ -->
+<section id="about" class="hero">
+  <div class="hero-photo">
+    <img src="{{ site.author.photo | relative_url }}" alt="{{ site.author.name }}"
+         onerror="this.style.display='none'">
+  </div>
+  <div class="hero-text">
+    <h1>{{ site.author.name }}</h1>
+    <p class="role">{{ site.author.role }}</p>
+    <p class="affiliation">{{ site.author.affiliation }}</p>
+
+    <div class="social">
+      {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">Scholar</a>{% endif %}
+      {% if site.social.orcid != "" %}<a href="{{ site.social.orcid }}" aria-label="ORCID" title="ORCID" target="_blank" rel="noopener">ORCID</a>{% endif %}
+      {% if site.social.github != "" %}<a href="{{ site.social.github }}" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">GitHub</a>{% endif %}
+      {% if site.social.twitter != "" %}<a href="{{ site.social.twitter }}" aria-label="Twitter / X" title="Twitter / X" target="_blank" rel="noopener">Twitter</a>{% endif %}
+      {% if site.social.linkedin != "" %}<a href="{{ site.social.linkedin }}" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+      {% if site.social.bluesky != "" %}<a href="{{ site.social.bluesky }}" aria-label="Bluesky" title="Bluesky" target="_blank" rel="noopener">Bluesky</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="bio">
+  <p>
+    I am an <strong>ECAT SCREDS Clinical Lecturer</strong> and Honorary Specialty Trainee
+    in Pathology at the <strong>University of Edinburgh</strong>. My work sits at the
+    interface of diagnostic pathology and biomedical research.
+  </p>
+  <p>
+    <!-- EDIT ME: Add a couple of sentences about your background, training, and what
+         drew you to clinical academic pathology. -->
+    Add a short personal biography here — your training pathway, clinical interests,
+    and the questions that motivate your research.
+  </p>
+</section>
+
+<!-- ============================ RESEARCH ============================ -->
+<section id="research" class="section">
+  <h2>Research</h2>
+  <p>
+    <!-- EDIT ME: One paragraph overview of your research programme. -->
+    Describe your overarching research interests here — for example, the tissue systems,
+    disease areas, or computational and molecular methods you work with.
+  </p>
+
+  <div class="research-grid">
+    <div class="research-card">
+      <h3>Research theme one</h3>
+      <p>Short description of a project or theme, the approach you take, and its clinical relevance.</p>
+    </div>
+    <div class="research-card">
+      <h3>Research theme two</h3>
+      <p>Short description of a second project or theme.</p>
+    </div>
+    <div class="research-card">
+      <h3>Research theme three</h3>
+      <p>Short description of a third project or theme.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PUBLICATIONS ============================ -->
+<section id="publications" class="section">
+  <h2>Publications</h2>
+  <p class="section-lead">
+    Selected publications. A full list is available on
+    {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a>{% else %}Google Scholar (add your link in <code>_config.yml</code>){% endif %}.
+  </p>
+
+  <ol class="pub-list">
+    {% for pub in site.data.publications %}
+    <li class="pub">
+      <span class="pub-title">{{ pub.title }}</span>
+      <span class="pub-authors">{{ pub.authors }}</span>
+      <span class="pub-venue">{{ pub.venue }}{% if pub.year %}, {{ pub.year }}{% endif %}.</span>
+      <span class="pub-links">
+        {% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener">DOI</a>{% endif %}
+        {% if pub.url %}<a href="{{ pub.url }}" target="_blank" rel="noopener">Link</a>{% endif %}
+        {% if pub.pdf %}<a href="{{ pub.pdf | relative_url }}" target="_blank" rel="noopener">PDF</a>{% endif %}
+      </span>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section id="contact" class="section">
+  <h2>Contact</h2>
+  <p>
+    <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a><br>
+    {{ site.author.affiliation }}
+  </p>
+</section>

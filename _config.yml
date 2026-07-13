@@ -1,0 +1,41 @@
+# ---------------------------------------------------------------------------
+# Site settings  —  edit the values below to personalise your website.
+# After any change to THIS file you must stop & restart `bundle exec jekyll serve`.
+# ---------------------------------------------------------------------------
+
+title: Alhafidz Hamdan
+tagline: Clinical Academic Pathologist
+description: >-
+  Personal academic website of Alhafidz Hamdan — ECAT SCREDS Clinical Lecturer
+  and Honorary Specialty Trainee in Pathology at the University of Edinburgh.
+
+# Your details ---------------------------------------------------------------
+author:
+  name: Alhafidz Hamdan
+  role: ECAT SCREDS Clinical Lecturer & Honorary Specialty Trainee in Pathology
+  affiliation: University of Edinburgh
+  email: alhafidzhamdan@gmail.com          # shown in the Contact section
+  photo: /assets/img/profile.svg           # replace with /assets/img/profile.jpg (your headshot)
+
+# Social / academic links (leave a value blank to hide that icon) -------------
+social:
+  scholar:   ""                            # Google Scholar profile URL
+  orcid:     ""                            # ORCID URL, e.g. https://orcid.org/0000-...
+  github:    ""                            # https://github.com/yourusername
+  twitter:   ""                            # https://twitter.com/yourhandle  (or X)
+  linkedin:  ""                            # https://www.linkedin.com/in/...
+  bluesky:   ""                            # https://bsky.app/profile/...
+
+# Deployment -----------------------------------------------------------------
+# For a USER site (repo named  <username>.github.io) leave these as-is.
+url: "https://username.github.io"          # <-- change username to your GitHub username
+baseurl: ""
+
+# Build settings -------------------------------------------------------------
+markdown: kramdown
+permalink: pretty
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
