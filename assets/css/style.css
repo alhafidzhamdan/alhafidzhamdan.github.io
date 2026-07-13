@@ -170,14 +170,15 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .affiliation a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--border); }
 .affiliation a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
-.social { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+.social { display: flex; flex-wrap: wrap; align-items: center; gap: 1.1rem; }
 .social a {
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding-bottom: 1px;
-  border-bottom: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-soft);
+  transition: color 0.15s ease, transform 0.15s ease;
 }
-.social a:hover { border-bottom-color: var(--accent); text-decoration: none; }
+.social a:hover { color: var(--accent); transform: translateY(-1px); text-decoration: none; }
+.social svg { width: 21px; height: 21px; display: block; }
 
 .bio p { margin: 0 0 1rem; }
 
