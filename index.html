@@ -15,7 +15,7 @@ layout: default
 
     <div class="social">
       {% if site.author.email != "" %}<a href="mailto:{{ site.author.email }}" aria-label="Email" title="Email">Email</a>{% endif %}
-      {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">Scholar</a>{% endif %}
+      {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">Google Scholar</a>{% endif %}
       {% if site.social.orcid != "" %}<a href="{{ site.social.orcid }}" aria-label="ORCID" title="ORCID" target="_blank" rel="noopener">ORCID</a>{% endif %}
       {% if site.social.github != "" %}<a href="{{ site.social.github }}" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">GitHub</a>{% endif %}
       {% if site.social.twitter != "" %}<a href="{{ site.social.twitter }}" aria-label="X (Twitter)" title="X (Twitter)" target="_blank" rel="noopener">X</a>{% endif %}
@@ -25,41 +25,24 @@ layout: default
   </div>
 </section>
 
-<section class="bio">
-  <p>
-    I am an <strong>ECAT SCREDS Clinical Lecturer</strong> and Honorary Pathology
-    Resident at the <strong>University of Edinburgh</strong>. My work sits at the
-    interface of diagnostic pathology and biomedical research.
-  </p>
-  <p>
-    <!-- EDIT ME: Add a couple of sentences about your background, training, and what
-         drew you to clinical academic pathology. -->
-    Add a short personal biography here — your training pathway, clinical interests,
-    and the questions that motivate your research.
-  </p>
-</section>
-
 <!-- ============================ RESEARCH ============================ -->
 <section id="research" class="section">
   <h2>Research</h2>
   <p>
-    <!-- EDIT ME: One paragraph overview of your research programme. -->
-    Describe your overarching research interests here — for example, the tissue systems,
-    disease areas, or computational and molecular methods you work with.
+    We are interested in tracking and targeting genomic instability in cancers by
+    studying tumours predominantly in their native tissue contexts. Our work focuses
+    on three main themes:
   </p>
 
   <div class="research-grid">
     <div class="research-card">
-      <h3>Research theme one</h3>
-      <p>Short description of a project or theme, the approach you take, and its clinical relevance.</p>
+      <h3>Mechanisms underlying genomic instability</h3>
     </div>
     <div class="research-card">
-      <h3>Research theme two</h3>
-      <p>Short description of a second project or theme.</p>
+      <h3>Morphology-aware spatial multi-omics</h3>
     </div>
     <div class="research-card">
-      <h3>Research theme three</h3>
-      <p>Short description of a third project or theme.</p>
+      <h3>Biomarkers and therapeutics</h3>
     </div>
   </div>
 </section>
@@ -68,17 +51,16 @@ layout: default
 <section id="publications" class="section">
   <h2>Publications</h2>
   {% if site.data.scholar %}
-  <a class="scholar-stats" href="{{ site.social.scholar }}" target="_blank" rel="noopener"
-     title="Google Scholar metrics — as of {{ site.data.scholar.as_of }}">
+  <div class="scholar-stats" title="Google Scholar metrics — as of {{ site.data.scholar.as_of }}">
     <span class="stat"><span class="stat-label">Citations:</span> <span class="stat-num">{{ site.data.scholar.citations }}</span></span>
     <span class="stat"><span class="stat-label">h-index:</span> <span class="stat-num">{{ site.data.scholar.h_index }}</span></span>
     <span class="stat"><span class="stat-label">i10-index:</span> <span class="stat-num">{{ site.data.scholar.i10_index }}</span></span>
-  </a>
+  </div>
   {% endif %}
 
   <p class="section-lead">
-    Selected publications. For the full list, please visit my
-    <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a> page.
+    Latest publications. Check my
+    <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a> for the full list.
   </p>
 
   <ol class="pub-list">

@@ -172,6 +172,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
   padding: 1.1rem 1.2rem;
 }
 .research-card h3 { margin: 0 0 0.45rem; font-size: 1.02rem; font-weight: 600; }
+.research-card h3:only-child { margin: 0; }
 .research-card p { margin: 0; font-size: 0.94rem; color: var(--text-soft); }
 
 /* Publications ------------------------------------------------------------ */
@@ -193,7 +194,6 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
   font-size: 0.9rem;
   transition: border-color 0.15s ease;
 }
-.scholar-stats:hover .stat { border-color: var(--accent); }
 .scholar-stats .stat-label { color: var(--text-soft); }
 .scholar-stats .stat-num {
   font-family: var(--font-serif);
