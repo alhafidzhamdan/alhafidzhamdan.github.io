@@ -2,9 +2,15 @@
 # Publications  —  add one entry per paper (newest first).
 # Only `title` is required. Add `doi`, `url`, or `pdf` to show link buttons.
 #
-# Auto-populated from PubMed (July 2026). Cardiac-CT papers by a different
-# "Ashraf Hamdan" were excluded. Please verify and add any papers PubMed
-# doesn't index (e.g. preprints, book chapters).
+# Source: PubMed, searched July 2026 for author "Alhafidz Hamdan" (2011-2026).
+# Namesakes excluded: Ashraf Hamdan (cardiology, Tel Aviv), Asmah Hanim Hamdan
+# (pathology, Malaysia), Amirul Hazmi Hamdan, Ahmed Haj Hamdan, Abdul-Latif /
+# Abdul-Hakeem Hamdan.
+#
+# NOTE: entries below marked "# letter" or "# case report" are early-career
+# correspondence / case reports. Delete any you'd rather not feature.
+# Google Scholar could not be searched automatically (bot-blocked) — add your
+# Scholar profile URL to _config.yml and tell me if you'd like preprints added.
 # ---------------------------------------------------------------------------
 
 - title: "Synthetic super-enhancers enable precision viral immunotherapy"
@@ -42,3 +48,75 @@
   venue: "The Journal of Pathology"
   year: 2022
   doi: "10.1002/path.5901"
+
+- title: "Compression of a giant pseudomeningocele causing transient anoxic seizures — a case report"  # case report
+  authors: "Hamdan A, Saxena A, Rao G, Ivanov M"
+  venue: "Acta Neurochirurgica"
+  year: 2018
+  doi: "10.1007/s00701-017-3446-z"
+
+- title: "Counting the cost of negligence in neurosurgery: lessons to be learned from 10 years of claims in the NHS"
+  authors: "Hamdan A, Strachan RD, Nath F, Coulter IC"
+  venue: "British Journal of Neurosurgery"
+  year: 2014
+  doi: "10.3109/02688697.2014.971709"
+
+- title: "Intramedullary hemorrhage from a thoracolumbar dural arteriovenous fistula"  # case report
+  authors: "Hamdan A, Padmanabhan R"
+  venue: "The Spine Journal"
+  year: 2014
+  doi: "10.1016/j.spinee.2014.10.005"
+
+- title: "Subarachnoid hemorrhage and the female sex: analysis of risk factors, aneurysm characteristics, and outcomes"
+  authors: "Hamdan A, Barnes J, Mitchell P"
+  venue: "Journal of Neurosurgery"
+  year: 2014
+  doi: "10.3171/2014.7.JNS132318"
+
+- title: "Histogram analysis of apparent diffusion coefficient within enhancing and nonenhancing tumor volumes in recurrent glioblastoma patients treated with bevacizumab"
+  authors: "Rahman R, Hamdan A, Zweifler R, Jiang H, Norden AD, Reardon DA, Mukundan S, Wen PY, Huang RY"
+  venue: "Journal of Neuro-Oncology"
+  year: 2014
+  doi: "10.1007/s11060-014-1464-8"
+
+- title: "Spin-echo echo-planar perfusion prior to chemoradiation is a strong independent predictor of progression-free and overall survival in newly diagnosed glioblastoma"
+  authors: "Akgoz A, Rahman R, You H, Qu J, Hamdan A, Seethamraju RT, Wen PY, Young GS"
+  venue: "Journal of Neuro-Oncology"
+  year: 2014
+  doi: "10.1007/s11060-014-1454-x"
+
+- title: "Recurrent glioblastoma: volumetric assessment and stratification of patient survival with early posttreatment MRI in patients treated with bevacizumab"
+  authors: "Huang RY, Rahman R, Hamdan A, Kane C, Chen C, Norden AD, Reardon DA, Mukundun S, Wen PY"
+  venue: "Cancer"
+  year: 2013
+  doi: "10.1002/cncr.28210"
+
+- title: "Barriers faced by medical students interested in research"  # letter
+  authors: "Hamdan A, Kakarla J"
+  venue: "Medical Teacher"
+  year: 2012
+  doi: "10.3109/0142159X.2012.716559"
+
+- title: "Towards widening access to medicine"  # letter
+  authors: "Hamdan A, Lea E"
+  venue: "Medical Teacher"
+  year: 2012
+  doi: "10.3109/0142159X.2012.716558"
+
+- title: "Segregated seating in the lecture hall"  # letter
+  authors: "Hamdan A"
+  venue: "The Clinical Teacher"
+  year: 2012
+  doi: "10.1111/j.1743-498X.2012.00600.x"
+
+- title: "Medical students still lack skills needed to practise evidence-based medicine"  # letter
+  authors: "Hamdan A"
+  venue: "Journal of the Royal Society of Medicine"
+  year: 2012
+  doi: "10.1258/jrsm.2012.120182"
+
+- title: "Modified Lund concept versus cerebral perfusion pressure-targeted therapy: a randomised controlled study in patients with secondary brain ischaemia"
+  authors: "Dizdarevic K, Hamdan A, Omerhodzic I, Kominlija-Smajic E"
+  venue: "Clinical Neurology and Neurosurgery"
+  year: 2011
+  doi: "10.1016/j.clineuro.2011.10.005"
