@@ -148,12 +148,12 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 .hero {
   display: flex;
   align-items: center;
-  gap: 2.4rem;
+  gap: 2.16rem;
   padding: 4.4rem 0 2.8rem;
 }
 .hero-photo img {
-  width: 180px;
-  height: 180px;
+  width: 162px;
+  height: 162px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center center;
@@ -161,13 +161,13 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 }
 .hero-text h1 {
   font-family: var(--font-serif);
-  font-size: 2.52rem;
+  font-size: 2.27rem;
   font-weight: 600;
   margin: 0 0 0.4rem;
   letter-spacing: -0.02em;
 }
-.hero-text .role { margin: 0; font-weight: 500; font-size: 1.2rem; color: var(--text); }
-.hero-text .affiliation { margin: 0.15rem 0 0.9rem; font-size: 1.1rem; color: var(--text-soft); }
+.hero-text .role { margin: 0; font-weight: 500; font-size: 1.08rem; color: var(--text); }
+.hero-text .affiliation { margin: 0.15rem 0 0.9rem; font-size: 0.99rem; color: var(--text-soft); }
 .affiliation a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--border); }
 .affiliation a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
@@ -179,7 +179,7 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
   transition: color 0.15s ease, transform 0.15s ease;
 }
 .social a:hover { color: var(--accent); transform: translateY(-1px); text-decoration: none; }
-.social svg { width: 25px; height: 25px; display: block; }
+.social svg { width: 23px; height: 23px; display: block; }
 
 .bio p { margin: 0 0 1rem; }
 
