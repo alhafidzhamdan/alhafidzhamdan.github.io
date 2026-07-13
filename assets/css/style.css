@@ -119,6 +119,20 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 }
 .section-lead { color: var(--text-soft); margin-top: -0.4rem; }
 
+/* Two-column sections: heading in a narrow left column, content on the right */
+.section-split {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+.section-split > .split-label { margin: 0; }
+.split-content > *:first-child { margin-top: 0; }
+@media (max-width: 640px) {
+  .section-split { display: block; }
+  .section-split > .split-label { margin-bottom: 1.1rem; }
+}
+
 /* Hero -------------------------------------------------------------------- */
 .hero {
   display: flex;
@@ -155,7 +169,6 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
 }
 .social a:hover { border-bottom-color: var(--accent); text-decoration: none; }
 
-.bio { padding: 0.5rem 0 2.5rem; }
 .bio p { margin: 0 0 1rem; }
 
 /* Research themes (accordion) --------------------------------------------- */
