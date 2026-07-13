@@ -67,8 +67,8 @@ layout: default
 <section id="publications" class="section">
   <h2>Publications</h2>
   <p class="section-lead">
-    Selected publications. A full list is available on
-    {% if site.social.scholar != "" %}<a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a>{% else %}Google Scholar (add your link in <code>_config.yml</code>){% endif %}.
+    Selected publications{% if site.social.scholar != "" %}; a full list is available on
+    <a href="{{ site.social.scholar }}" target="_blank" rel="noopener">Google Scholar</a>{% endif %}.
   </p>
 
   <ol class="pub-list">
