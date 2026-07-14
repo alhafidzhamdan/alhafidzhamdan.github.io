@@ -1,8 +1,7 @@
 # Personal academic website
 
 Source for **Alhafidz Hamdan's** personal website — a single-page Jekyll site
-hosted free on GitHub Pages. Design inspired by
-[michaeldnicholson.github.io](https://michaeldnicholson.github.io/).
+hosted free on GitHub Pages.
 
 ## Editing the site
 
