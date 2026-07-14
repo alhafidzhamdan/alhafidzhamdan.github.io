@@ -1,0 +1,75 @@
+name: Update Google Scholar metrics
+
+# Refreshes _data/scholar.yml from your Google Scholar profile once a week.
+# Requires a repository secret named SERPAPI_KEY (free key from https://serpapi.com/).
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # every Monday at 06:00 UTC
+  workflow_dispatch: {}    # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch metrics from SerpApi
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, sys, urllib.request, datetime
+
+          key = os.environ.get("SERPAPI_KEY")
+          if not key:
+              sys.exit("SERPAPI_KEY secret is not set.")
+
+          author_id = "8jqigrkAAAAJ"
+          url = ("https://serpapi.com/search.json"
+                 f"?engine=google_scholar_author&author_id={author_id}&api_key={key}")
+
+          with urllib.request.urlopen(url, timeout=60) as r:
+              data = json.load(r)
+
+          table = data.get("cited_by", {}).get("table", [])
+          def get(metric):
+              for row in table:
+                  if metric in row:
+                      return row[metric].get("all")
+              return None
+
+          citations = get("citations")
+          h_index   = get("h_index")
+          i10_index = get("i10_index")
+
+          if not all(isinstance(v, int) for v in (citations, h_index, i10_index)):
+              sys.exit("Could not parse metrics. Response head: " + json.dumps(data)[:400])
+
+          as_of = datetime.date.today().strftime("%B %Y")
+          content = (
+              "# Google Scholar metrics — auto-updated weekly by\n"
+              "# .github/workflows/update-scholar.yml (SerpApi, author 8jqigrkAAAAJ)\n"
+              f'as_of: "{as_of}"\n'
+              f"citations: {citations}\n"
+              f"h_index: {h_index}\n"
+              f"i10_index: {i10_index}\n"
+          )
+          with open("_data/scholar.yml", "w") as f:
+              f.write(content)
+          print(content)
+          PY
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet _data/scholar.yml; then
+            echo "No change in metrics."
+          else
+            git add _data/scholar.yml
+            git commit -m "Update Google Scholar metrics"
+            git push
+          fi
