@@ -1,0 +1,8 @@
+# Software  —  one entry per tool/package. `name` and `url` are required.
+# `source` (GitHub / Zenodo / UCSC / …) shows as a small tag; `description` optional.
+# Add entries below and the "Coming soon" placeholder disappears automatically.
+#
+# - name: "Tool name"
+#   url: "https://github.com/alhafidzhamdan/your-repo"
+#   source: "GitHub"
+#   description: "One-line description of what the tool does."

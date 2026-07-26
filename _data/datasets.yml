@@ -1,0 +1,8 @@
+# Datasets  —  one entry per dataset. `name` and `url` are required.
+# `source` (Zenodo / UCSC / GEO / …) shows as a small tag; `description` optional.
+# Add entries below and the "Coming soon" placeholder disappears automatically.
+#
+# - name: "Dataset name"
+#   url: "https://zenodo.org/records/0000000"
+#   source: "Zenodo"
+#   description: "One-line description of the dataset."

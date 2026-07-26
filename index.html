@@ -115,6 +115,46 @@ layout: default
   </div>
 </section>
 
+<!-- ============================ SOFTWARE ============================ -->
+<section id="software" class="section section-split">
+  <h2 class="split-label">Software</h2>
+  <div class="split-content">
+    <ul class="resource-list">
+      {% for item in site.data.software %}
+      <li class="resource">
+        <span class="resource-head">
+          <a class="resource-name" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>
+          {% if item.source %}<span class="resource-tag">{{ item.source }}</span>{% endif %}
+        </span>
+        {% if item.description %}<span class="resource-desc">{{ item.description }}</span>{% endif %}
+      </li>
+      {% else %}
+      <li class="resource-empty">Coming soon.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ DATASETS ============================ -->
+<section id="datasets" class="section section-split">
+  <h2 class="split-label">Datasets</h2>
+  <div class="split-content">
+    <ul class="resource-list">
+      {% for item in site.data.datasets %}
+      <li class="resource">
+        <span class="resource-head">
+          <a class="resource-name" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>
+          {% if item.source %}<span class="resource-tag">{{ item.source }}</span>{% endif %}
+        </span>
+        {% if item.description %}<span class="resource-desc">{{ item.description }}</span>{% endif %}
+      </li>
+      {% else %}
+      <li class="resource-empty">Coming soon.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
 <!-- ============================ PUBLICATIONS ============================ -->
 <section id="publications" class="section section-split">
   <div class="split-aside">
