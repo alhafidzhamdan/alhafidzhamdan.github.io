@@ -1,6 +1,6 @@
 # Google Scholar metrics — auto-updated weekly by
 # .github/workflows/update-scholar.yml (SerpApi, author 8jqigrkAAAAJ)
-as_of: "July 2026"
-citations: 5131
+as_of: "August 2026"
+citations: 5072
 h_index: 26
-i10_index: 39
+i10_index: 38
