@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ecDNA simulation — Alhafidz Hamdan</title>
+<style>
+  :root{
+    --bg:#eaeef3; --panel:#ffffff; --ink:#16202e; --muted:#5b6676; --faint:#8a95a4;
+    --line:#d6dde6; --accent:#d92a05; --ecdna:#c1447e;
+    --shadow:0 1px 2px rgba(20,30,45,.06),0 10px 30px rgba(20,30,45,.07);
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0c111a; --panel:#141b26; --ink:#e8edf4; --muted:#95a1b2; --faint:#6b7788;
+      --line:#24303d; --accent:#ff5c3a; --ecdna:#e46ba2;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.4);}
+  }
+  html,body{margin:0;padding:0;background:var(--bg)}
+  *{box-sizing:border-box}
+  .wrap{max-width:760px;margin:0 auto;padding:56px 24px 72px;font-family:var(--sans);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a.back{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:.03em}
+  a.back:hover{color:var(--accent)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:26px 0 10px}
+  h1{font-size:clamp(30px,6vw,44px);margin:0 0 14px;font-weight:800;letter-spacing:-.025em}
+  .lede{font-size:17px;color:var(--muted);margin:0 0 8px;max-width:62ch}
+  .lede b{color:var(--ink);font-weight:600}
+  .cards{display:grid;gap:16px;margin-top:32px}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;box-shadow:var(--shadow);transition:transform .12s ease,border-color .12s ease}
+  @media (prefers-reduced-motion:no-preference){a.card:hover{transform:translateY(-2px);border-color:var(--accent)}}
+  a.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .card .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .card h2{font-size:20px;margin:6px 0 8px;font-weight:700;letter-spacing:-.01em}
+  .card p{margin:0;font-size:14.5px;color:var(--muted)}
+  .card .go{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:12px;display:inline-block}
+  .foot{margin-top:34px;font-size:12.5px;color:var(--faint);line-height:1.7}
+  .foot a{color:var(--accent);text-decoration:none}
+  .foot code{font-family:var(--mono);font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← Alhafidz Hamdan</a>
+
+  <p class="eyebrow">Extrachromosomal DNA · interactive</p>
+  <h1>ecDNA simulation</h1>
+  <p class="lede">Two browser-based models of how an <b>episomal ecDNA</b> is born and evolves — a single
+    acentric circle carrying an oncogene (EGFR/chr7), amplified and reshaped over cell divisions. Built to
+    accompany <a href="https://github.com/alhafidzhamdan/EpiTracer" style="color:var(--accent);text-decoration:none">EpiTracer</a>.</p>
+
+  <div class="cards">
+    <a class="card" href="/simulations/ecdna_birth_neutral_100div.html">
+      <span class="k">Neutral · 100 divisions</span>
+      <h2>Birth &amp; neutral drift</h2>
+      <p>One ecDNA excised in the founder, then replication + random (acentric) segregation with no selection.
+        Watch the copy-number distribution spread and the amplicon drift toward loss — with transient amplification along the way.</p>
+      <span class="go">Open simulation →</span>
+    </a>
+    <a class="card" href="/simulations/ecdna_selection_structural_100div.html">
+      <span class="k">Selection + rearrangements · 100 divisions</span>
+      <h2>Selection &amp; structural evolution</h2>
+      <p>Positive selection on oncogene dosage, with intramolecular rearrangements seeded at divisions 20 and 50
+        (DUP, DEL, inversion — no translocation). Structural variants sweep the population; genome profiles are drawn
+        <i>plot_sv_linear</i>-style with the founder circularisation SV highlighted.</p>
+      <span class="go">Open simulation →</span>
+    </a>
+  </div>
+
+  <p class="foot">Self-contained, theme-aware pages — no data leaves your browser. Model and source:
+    <a href="https://github.com/alhafidzhamdan/alhafidzhamdan.github.io/tree/main/simulations"><code>simulations/</code></a>.</p>
+</div>
+</body>
+</html>

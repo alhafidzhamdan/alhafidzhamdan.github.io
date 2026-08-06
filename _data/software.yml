@@ -6,3 +6,7 @@
 #   url: "https://github.com/alhafidzhamdan/your-repo"
 #   source: "GitHub"
 #   description: "One-line description of what the tool does."
+
+- name: "ecDNA simulation"
+  url: "/simulations/"
+  source: "Interactive"
