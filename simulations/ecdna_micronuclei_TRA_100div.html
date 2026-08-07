@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ecDNA via micronuclei — EGFR×MYCN TRA hub</title>
+<style>html,body{margin:0;padding:0;background:#eef3f3}@media (prefers-color-scheme:dark){html,body{background:#0b1214}}</style>
+<style>
+  :root{
+    --bg:#eef3f3; --panel:#ffffff; --panel-2:#f3f7f7; --ink:#132022; --muted:#586568; --faint:#8a9698;
+    --line:#d3dede; --grid:#e5eded;
+    --amp:#d92a05; --diploid:#3a9387; --tra:#e0771c; --chr7:#6b8fa8; --chr2:#a86b8f;
+    --accent:#0e8a8f; --shadow:0 1px 2px rgba(15,30,30,.06),0 8px 24px rgba(15,30,30,.06);
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --ideo:#e6ecec; --ideoband:#c3d0d0;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0b1214; --panel:#111a1c; --panel-2:#0e1618; --ink:#e6eff0; --muted:#93a3a5; --faint:#697779;
+      --line:#22302f; --grid:#1a2726; --amp:#ff5c3a; --diploid:#4cb6a7; --tra:#f59a3e; --chr7:#8fa9c0; --chr2:#c08fa9;
+      --accent:#3fb8bf; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+      --ideo:#243230; --ideoband:#38504c;}
+  }
+  :root[data-theme="light"]{--bg:#eef3f3; --panel:#ffffff; --panel-2:#f3f7f7; --ink:#132022; --muted:#586568; --faint:#8a9698;
+    --line:#d3dede; --grid:#e5eded; --amp:#d92a05; --diploid:#3a9387; --tra:#e0771c; --chr7:#6b8fa8; --chr2:#a86b8f;
+    --accent:#0e8a8f; --shadow:0 1px 2px rgba(15,30,30,.06),0 8px 24px rgba(15,30,30,.06); --ideo:#e6ecec; --ideoband:#c3d0d0;}
+  :root[data-theme="dark"]{--bg:#0b1214; --panel:#111a1c; --panel-2:#0e1618; --ink:#e6eff0; --muted:#93a3a5; --faint:#697779;
+    --line:#22302f; --grid:#1a2726; --amp:#ff5c3a; --diploid:#4cb6a7; --tra:#f59a3e; --chr7:#8fa9c0; --chr2:#c08fa9;
+    --accent:#3fb8bf; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); --ideo:#243230; --ideoband:#38504c;}
+
+  *{box-sizing:border-box}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 24px 64px;font-family:var(--sans);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5}
+  a.back{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none}
+  a.back:hover{color:var(--accent)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:22px 0 10px}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.02;margin:0 0 12px;font-weight:800;letter-spacing:-.025em;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:17px;color:var(--muted);max-width:70ch;margin:0 0 22px;text-wrap:pretty}
+  .lede b{color:var(--ink);font-weight:600}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 15px;margin:0 0 4px;font-size:12.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px}
+  .swatch{width:16px;height:3px;border-radius:2px;flex:none}
+  .dot{width:11px;height:11px;border-radius:50%;flex:none}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px;margin-top:20px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .panel-head h2{font-size:14px;margin:0;font-weight:700;letter-spacing:-.01em}
+  .panel-head .sub{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
+
+  .controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 22px}
+  .ctl{display:flex;flex-direction:column;gap:6px}
+  .ctl label{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .ctl .row{display:flex;align-items:center;gap:6px}
+  input[type=number]{width:92px;font-family:var(--mono);font-size:14px;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  input[type=range]{accent-color:var(--accent)}
+  input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  button.btn{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:8px;padding:9px 16px;cursor:pointer}
+  button.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  button.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-reduced-motion:no-preference){button.btn:hover{filter:brightness(1.06)}button.btn:active{transform:translateY(1px)}}
+  .readout{margin-left:auto;display:flex;gap:20px;font-family:var(--mono);font-size:12px;flex-wrap:wrap}
+  .readout div{display:flex;flex-direction:column;gap:2px;text-align:right}
+  .readout .k{color:var(--faint);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+  .readout .v{font-size:16px;font-variant-numeric:tabular-nums;color:var(--ink)}
+
+  .svgbox{width:100%;overflow-x:auto}
+  svg{display:block;max-width:100%;height:auto}
+  text{font-family:var(--mono)}
+
+  .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
+  @media (max-width:360px){.strip{grid-template-columns:1fr}}
+  .frame{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
+  .frame.birth{border-color:var(--tra);box-shadow:0 0 0 1px var(--tra) inset}
+  .frame .cap{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.05em;margin:0 2px 4px;display:flex;justify-content:space-between}
+  .frame .cap b{color:var(--muted);font-weight:400}
+  .frame .cn{font-family:var(--mono);font-size:11.5px;margin:4px 2px 0;color:var(--ink);font-variant-numeric:tabular-nums}
+
+  .note{font-size:13px;color:var(--muted);max-width:76ch;margin:14px 2px 0;line-height:1.6}
+  .note b{color:var(--ink);font-weight:600}
+  .hint{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/simulations/">← ecDNA simulation</a>
+  <p class="eyebrow">Extrachromosomal DNA · micronucleus origin</p>
+  <h1>Born in a <em>micronucleus</em></h1>
+  <p class="lede">A lagging chromosome is trapped in a <b>micronucleus</b>, shatters (<b>chromothripsis</b>), and the
+    fragments re-ligate into a single circular ecDNA — one that fuses two <b>non-homologous</b> loci: <b>EGFR</b> on
+    chr7 and <b>MYCN</b> on chr2, stitched by an inter-chromosomal <b>translocation (TRA)</b>. There is <b>no excision
+    scar</b> here — the founding junction is the TRA itself. Under selection on the double-oncogene dosage, the hub
+    amplifies across <b>100 divisions</b>, and the TRA's read support climbs to its maximum at division 100.</p>
+
+  <div class="legend" aria-hidden="true">
+    <span><i class="swatch" style="background:var(--amp)"></i>amplicon copy number (major)</span>
+    <span><i class="swatch" style="background:var(--diploid)"></i>other allele (minor)</span>
+    <span><i class="swatch" style="background:var(--tra)"></i>founder TRA (EGFR–MYCN fusion)</span>
+    <span><i class="dot" style="background:var(--chr7)"></i>chr7</span>
+    <span><i class="dot" style="background:var(--chr2)"></i>chr2</span>
+  </div>
+
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl"><label for="seed">Random seed</label><div class="row">
+        <input id="seed" type="number" value="9" min="0" step="1"><button class="btn ghost" id="rand" type="button">Randomize</button></div></div>
+      <div class="ctl"><label for="npop">Population size N</label><input id="npop" type="number" value="300" min="50" max="3000" step="50"></div>
+      <div class="ctl"><label for="sel">Selection strength</label><div class="row">
+        <input id="sel" type="range" min="0" max="0.2" step="0.005" value="0.06"><span class="v" id="selv" style="font-family:var(--mono);font-size:13px">0.06</span></div></div>
+      <button class="btn" id="run" type="button">New run ↻</button>
+      <div class="readout">
+        <div><span class="k">Mean CN · gen 100</span><span class="v" id="ro-mean">—</span></div>
+        <div><span class="k">Carrying hub</span><span class="v" id="ro-carry">—</span></div>
+        <div><span class="k">Max copies</span><span class="v" id="ro-max">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Amplification of the EGFR×MYCN hub</h2><span class="sub">mean copies (solid) · max (faint) · % carrying (dashed) · division 0 → 100</span></div>
+    <div class="svgbox"><svg id="amp" viewBox="0 0 470 250" role="img" aria-label="amplification of the hybrid ecDNA over 100 divisions"></svg></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Genome profile — a two-fragment hub</h2><span class="sub" id="strip-sub">chr7 (EGFR) ‖ chr2 (MYCN) · representative carrier</span></div>
+    <div class="strip" id="strip"></div>
+    <p class="note"><b>Reading it:</b> the ecDNA carries one fragment from <span style="color:var(--chr7)"><b>chr7 (EGFR)</b></span> and one from
+      <span style="color:var(--chr2)"><b>chr2 (MYCN)</b></span>, so both loci amplify together — the red major-allele track climbs at each locus
+      while the minor allele stays at 1. The <span style="color:var(--tra)"><b>founder TRA</b></span> arcs <i>between</i> the two chromosomes
+      (the interchromosomal fusion that closes the circle); like any junction on the amplicon its read support tracks copy number, rising to a
+      <span style="color:var(--tra)"><b>maximum at division 100</b></span>. Unlike the episomal circle, there is <b>no excision scar</b> — micronuclear
+      chromothripsis fuses non-homologous loci rather than looping a segment cleanly out of one place.</p>
+  </div>
+
+  <p class="hint">Model · micronucleus → chromothripsis → hybrid circle (EGFR/chr7 + MYCN/chr2, joined by a TRA) → each division: replicate
+    (k→2k, cap 200) then Binomial(2k, ½) partition → fitness-weighted resample to N, w = 1 + s·k·(dual-oncogene dosage). Coordinates schematic.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var GENS=100, CHECK=[0,20,50,100], KCAP=200, DOSE=2.4; // hub carries two oncogenes
+  // schematic windows / fragments (Mb). The ecDNA fuses FRAG7 (chr7) + FRAG2 (chr2).
+  var WIN7={s:54.6e6,e:55.6e6}, EGFR={a:55.0e6,b:55.2e6}, FRAG7={a:54.8e6,b:55.4e6};
+  var WIN2={s:15.5e6,e:16.5e6}, MYCN={a:15.94e6,b:16.0e6}, FRAG2={a:15.7e6,b:16.3e6};
+  function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+  function C(){return{ink:cssv('--ink'),grid:cssv('--grid'),faint:cssv('--faint'),muted:cssv('--muted'),line:cssv('--line'),
+    amp:cssv('--amp'),diploid:cssv('--diploid'),tra:cssv('--tra'),chr7:cssv('--chr7'),chr2:cssv('--chr2'),
+    ideo:cssv('--ideo'),ideoband:cssv('--ideoband')};}
+  var NS="http://www.w3.org/2000/svg";
+  function el(t,a){var e=document.createElementNS(NS,t);if(a)for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function binom(n,rng){var s=0;for(var i=0;i<n;i++)s+=rng()<0.5?1:0;return s;}
+  function bisect(arr,x){var lo=0,hi=arr.length-1;while(lo<hi){var m=(lo+hi)>>1;if(arr[m]<x)lo=m+1;else hi=m;}return lo;}
+  function niceCeil(x){if(!isFinite(x)||x<=0)return 2;var m=Math.pow(10,Math.floor(Math.log10(x))-1);return Math.max(2,Math.ceil(x/m)*m);}
+
+  function simulate(seed,N,founder,s){
+    var rng=mulberry32(seed>>>0);
+    var pop=[founder];
+    var traj=[];
+    function record(){var carry=0,sum=0,mx=0;for(var i=0;i<pop.length;i++){var k=pop[i];if(k>0){carry++;sum+=k;if(k>mx)mx=k;}}
+      traj.push({carry:carry/pop.length,meanCar:carry?sum/carry:0,max:mx});}
+    record();
+    for(var g=1;g<=GENS;g++){
+      var d=[];for(var i=0;i<pop.length;i++){var two=Math.min(pop[i]*2,KCAP);var a=binom(two,rng);d.push(a);d.push(two-a);}
+      var cum=[],tot=0;for(i=0;i<d.length;i++){tot+=1+s*d[i]*DOSE;cum.push(tot);}
+      var next=[];for(i=0;i<N;i++)next.push(d[bisect(cum,rng()*tot)]);
+      pop=next;record();
+    }
+    return traj;
+  }
+
+  var state={seed:9,N:300,founder:1,s:0.06,traj:null};
+  function recompute(){state.traj=simulate(state.seed,state.N,state.founder,state.s);renderAll();}
+
+  // ---- amplification chart -------------------------------------------------
+  function renderAmp(){
+    var svg=document.getElementById('amp');svg.textContent='';var c=C(),tr=state.traj;
+    var W=470,H=250,padL=38,padR=42,padT=18,padB=28;
+    var maxMax=1;tr.forEach(function(p){if(p.max>maxMax)maxMax=p.max;});
+    function x(g){return padL+g/GENS*(W-padL-padR);}
+    function yM(v){return H-padB-(v/maxMax)*(H-padT-padB);}
+    function yC(f){return H-padB-f*(H-padT-padB);}
+    [0,.25,.5,.75,1].forEach(function(f){svg.appendChild(el('line',{x1:padL,y1:yC(f),x2:W-padR,y2:yC(f),stroke:c.grid,'stroke-width':1}));});
+    [0,Math.round(maxMax/2),maxMax].forEach(function(v){var t=el('text',{x:padL-5,y:yM(v)+3,'font-size':9,fill:c.faint,'text-anchor':'end'});t.textContent=v;svg.appendChild(t);});
+    [0,.5,1].forEach(function(f){var t=el('text',{x:W-padR+5,y:yC(f)+3,'font-size':9,fill:c.diploid,'text-anchor':'start'});t.textContent=Math.round(f*100)+'%';svg.appendChild(t);});
+    var da='M'+x(0)+','+yC(0);for(var g=0;g<tr.length;g++)da+=' L'+x(g)+','+yC(tr[g].carry);da+=' L'+x(tr.length-1)+','+yC(0)+' Z';
+    svg.appendChild(el('path',{d:da,fill:c.diploid,'fill-opacity':0.10}));
+    var dc='';for(g=0;g<tr.length;g++)dc+=(g?' L':'M')+x(g)+','+yC(tr[g].carry);
+    svg.appendChild(el('path',{d:dc,fill:'none',stroke:c.diploid,'stroke-width':1.6,'stroke-dasharray':'3 3'}));
+    var dmax='';for(g=0;g<tr.length;g++)dmax+=(g?' L':'M')+x(g)+','+yM(tr[g].max);
+    svg.appendChild(el('path',{d:dmax,fill:'none',stroke:c.amp,'stroke-width':1.2,'stroke-opacity':0.45}));
+    var dmean='';for(g=0;g<tr.length;g++)dmean+=(g?' L':'M')+x(g)+','+yM(tr[g].meanCar);
+    svg.appendChild(el('path',{d:dmean,fill:'none',stroke:c.amp,'stroke-width':2.4}));
+    [0,25,50,75,100].forEach(function(g){var t=el('text',{x:x(g),y:H-9,'font-size':9,fill:c.faint,'text-anchor':'middle'});t.textContent=g;svg.appendChild(t);});
+    var la=el('text',{x:padL,y:11,'font-size':9,fill:c.amp});la.textContent='mean copies · max (faint)';svg.appendChild(la);
+    var lb=el('text',{x:W-padR,y:11,'font-size':9,fill:c.diploid,'text-anchor':'end'});lb.textContent='% carrying';svg.appendChild(lb);
+  }
+
+  // ---- two-locus genome profile (EpiTracer multi-locus style) -------------
+  function alleleAt(win,frag,k,p){var A=(p>=frag.a&&p<frag.b)?k:1,B=1;return A>=B?{maj:A,min:B}:{maj:B,min:A};}
+  function profileSVG(k,founderRS,rsMax){
+    var c=C(),W=580,H=252,padL=42,padR=46,padT=44,padB=58,gap=34;
+    var wW=(W-padL-padR-gap)/2;
+    var yMax=niceCeil(k);
+    var svg=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img'});
+    function yv(v){return H-padB-(v/yMax)*(H-padT-padB);}
+    var y0=yv(0),yTop=yv(yMax);
+    function rs2y(rs){return y0-Math.max(0,Math.min(1,rs/rsMax))*(y0-yTop);}
+    // shared y grid + copy-number ticks
+    [0,yMax/2,yMax].forEach(function(v){svg.appendChild(el('line',{x1:padL,y1:yv(v),x2:W-padR,y2:yv(v),stroke:c.grid,'stroke-width':1}));
+      var t=el('text',{x:padL-6,y:yv(v)+3.5,'font-size':10,fill:c.faint,'text-anchor':'end'});t.textContent=v;svg.appendChild(t);});
+    var cy=(padT+y0)/2;
+    svg.appendChild((function(){var t=el('text',{x:13,y:cy,'font-size':10,fill:c.muted,'text-anchor':'middle',transform:'rotate(-90 13 '+cy+')'});t.textContent='allele copy number';return t;})());
+    svg.appendChild((function(){var t=el('text',{x:W-12,y:cy,'font-size':10,fill:c.muted,'text-anchor':'middle',transform:'rotate(90 '+(W-12)+' '+cy+')'});t.textContent='read support';return t;})());
+
+    // one locus panel; returns the x-position of the TRA breakpoint
+    function locus(win,frag,gene,geneName,x0,chrName,chrCol,traBp){
+      function xg(p){return x0+(p-win.s)/(win.e-win.s)*wW;}
+      // amplified shading
+      if(alleleAt(win,frag,k,(frag.a+frag.b)/2).maj>2)
+        svg.appendChild(el('rect',{x:xg(frag.a),y:yTop,width:xg(frag.b)-xg(frag.a),height:y0-yTop,fill:c.amp,'fill-opacity':0.07}));
+      // CN step tracks: minor then major
+      var seg=[win.s,frag.a,frag.b,win.e];
+      function track(which,col,lw){for(var i=0;i<seg.length-1;i++){var v=alleleAt(win,frag,k,(seg[i]+seg[i+1])/2)[which];
+        svg.appendChild(el('line',{x1:xg(seg[i]),y1:yv(v),x2:xg(seg[i+1]),y2:yv(v),stroke:col,'stroke-width':lw}));
+        if(i>0){var pv=alleleAt(win,frag,k,(seg[i-1]+seg[i])/2)[which];if(pv!==v)svg.appendChild(el('line',{x1:xg(seg[i]),y1:yv(pv),x2:xg(seg[i]),y2:yv(v),stroke:col,'stroke-width':lw,'stroke-opacity':0.45}));}}}
+      track('min',c.diploid,2.2);track('maj',c.amp,2.8);
+      // gene label + dot
+      var gx=(xg(gene.a)+xg(gene.b))/2;
+      svg.appendChild((function(){var t=el('text',{x:gx,y:padT-19,'font-size':11,fill:c.ink,'text-anchor':'middle','font-style':'italic'});t.textContent=geneName;return t;})());
+      svg.appendChild(el('circle',{cx:gx,cy:padT-9,r:2,fill:c.ink}));
+      // ideogram + Mb axis + chr label
+      var idTop=y0+15,idBot=idTop+13;
+      svg.appendChild(el('rect',{x:xg(win.s),y:idTop,width:xg(win.e)-xg(win.s),height:idBot-idTop,fill:c.ideo,stroke:c.line,'stroke-width':0.7,rx:2}));
+      svg.appendChild(el('rect',{x:xg((win.s+win.e)/2-0.18e6),y:idTop+0.7,width:xg((win.s+win.e)/2+0.18e6)-xg((win.s+win.e)/2-0.18e6),height:idBot-idTop-1.4,fill:c.ideoband}));
+      var mid=(win.s+win.e)/2;
+      [mid-0.4e6,mid,mid+0.4e6].forEach(function(p){svg.appendChild(el('line',{x1:xg(p),y1:idBot+2,x2:xg(p),y2:idBot+6,stroke:c.faint,'stroke-width':0.9}));
+        var t=el('text',{x:xg(p),y:idBot+15,'font-size':8.5,fill:c.faint,'text-anchor':'middle'});t.textContent=(p/1e6).toFixed(1);svg.appendChild(t);});
+      var cl=el('text',{x:(xg(win.s)+xg(win.e))/2,y:idBot+28,'font-size':10.5,fill:chrCol,'text-anchor':'middle','font-weight':'bold'});cl.textContent=chrName;svg.appendChild(cl);
+      return xg(traBp);
+    }
+    var x7=locus(WIN7,FRAG7,EGFR,'EGFR',padL,'Chr 7',c.chr7,FRAG7.b);
+    var x2=locus(WIN2,FRAG2,MYCN,'MYCN',padL+wW+gap,'Chr 2',c.chr2,FRAG2.a);
+
+    // founder TRA arc between the two chromosomes (read-support height, shared axis)
+    var ay=rs2y(founderRS),mx=(x7+x2)/2;
+    svg.appendChild(el('line',{x1:x7,y1:y0,x2:x7,y2:ay,stroke:c.tra,'stroke-width':1.2,'stroke-opacity':0.8}));
+    svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:c.tra,'stroke-width':1.2,'stroke-opacity':0.8}));
+    svg.appendChild(el('path',{d:'M'+x7+','+ay+' Q'+mx+','+(ay-22)+' '+x2+','+ay,fill:'none',stroke:c.tra,'stroke-width':2.8}));
+    // read-support ticks + founder TRA annotation
+    svg.appendChild((function(){var t=el('text',{x:W-padR+5,y:y0+3,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t.textContent='0';return t;})());
+    svg.appendChild((function(){var t=el('text',{x:W-padR+5,y:yTop+7,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t.textContent=Math.round(rsMax);return t;})());
+    var fy=rs2y(founderRS);
+    svg.appendChild(el('line',{x1:padL,y1:fy,x2:W-padR,y2:fy,stroke:c.tra,'stroke-width':0.9,'stroke-dasharray':'3 3','stroke-opacity':0.5}));
+    svg.appendChild((function(){var t=el('text',{x:mx,y:ay-26,'font-size':9,fill:c.tra,'text-anchor':'middle','font-weight':'bold'});t.textContent='TRA · RS '+Math.round(founderRS);return t;})());
+    return svg;
+  }
+
+  function renderStrip(){
+    var host=document.getElementById('strip');host.textContent='';var tr=state.traj;
+    var ks=CHECK.map(function(g){return g===0?1:Math.max(1,Math.round(tr[g].meanCar));});
+    var founderRS=[],run=0;ks.forEach(function(k){run=Math.max(run,k);founderRS.push(run);});
+    var rsMax=founderRS[founderRS.length-1];
+    var titles=['GEN 0 · BIRTH','DIVISION 20','DIVISION 50','DIVISION 100'];
+    CHECK.forEach(function(g,i){
+      var f=document.createElement('div');f.className='frame'+(g===0?' birth':'');
+      var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+(g===0?'micronuclear TRA':'EGFR×MYCN hub')+'</b>';f.appendChild(cap);
+      f.appendChild(profileSVG(ks[i],founderRS[i],rsMax));
+      var cn=document.createElement('p');cn.className='cn';
+      cn.innerHTML=(g===0?'<b>k=1</b> · hybrid circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(tr[g].carry*100)+'% carry')
+        +' · <span style="color:var(--tra)">TRA RS '+founderRS[i]+'</span>';
+      f.appendChild(cn);
+      host.appendChild(f);
+    });
+  }
+
+  function renderReadout(){var last=state.traj[GENS];
+    document.getElementById('ro-mean').textContent=last.meanCar?last.meanCar.toFixed(1):'0';
+    document.getElementById('ro-carry').textContent=Math.round(last.carry*100)+'%';
+    document.getElementById('ro-max').textContent=last.max;}
+
+  function renderAll(){renderAmp();renderStrip();renderReadout();}
+
+  function reseed(){state.seed=Math.floor(Math.random()*99999);document.getElementById('seed').value=state.seed;recompute();}
+  document.getElementById('run').addEventListener('click',reseed);
+  document.getElementById('rand').addEventListener('click',reseed);
+  document.getElementById('seed').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.seed=isNaN(v)?0:v;recompute();});
+  document.getElementById('npop').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.N=Math.max(50,Math.min(3000,isNaN(v)?300:v));e.target.value=state.N;recompute();});
+  document.getElementById('sel').addEventListener('input',function(e){state.s=parseFloat(e.target.value);document.getElementById('selv').textContent=state.s.toFixed(3);recompute();});
+
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');
+  if(mq.addEventListener)mq.addEventListener('change',renderAll);
+  new MutationObserver(renderAll).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  recompute();
+})();
+</script>
+</body>
+</html>

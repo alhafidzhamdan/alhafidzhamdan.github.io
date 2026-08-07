@@ -46,9 +46,10 @@
 
   <p class="eyebrow">Extrachromosomal DNA · interactive</p>
   <h1>ecDNA simulation</h1>
-  <p class="lede">Two browser-based models of how an <b>episomal ecDNA</b> is born and evolves — a single
-    acentric circle carrying an oncogene (EGFR/chr7), amplified and reshaped over cell divisions. Built to
-    accompany <a href="https://github.com/alhafidzhamdan/EpiTracer" style="color:var(--accent);text-decoration:none">EpiTracer</a>.</p>
+  <p class="lede">Three browser-based models of how an <b>ecDNA</b> is born and evolves — acentric circles carrying
+    oncogenes, amplified and reshaped over cell divisions, formed by two different mechanisms (episomal excision and
+    micronuclear chromothripsis). Built to accompany
+    <a href="https://github.com/alhafidzhamdan/EpiTracer" style="color:var(--accent);text-decoration:none">EpiTracer</a>.</p>
 
   <div class="cards">
     <a class="card" href="/simulations/ecdna_birth_neutral_100div.html">
@@ -63,7 +64,15 @@
       <h2>Selection &amp; structural evolution</h2>
       <p>Positive selection on oncogene dosage, with intramolecular rearrangements seeded at divisions 20 and 50
         (DUP, DEL, inversion — no translocation). Structural variants sweep the population; genome profiles are drawn
-        <i>plot_sv_linear</i>-style with the founder circularisation SV highlighted.</p>
+        <i>plot_sv_linear</i>-style with the founder circularisation SV highlighted, and the excision scar shown from division 2.</p>
+      <span class="go">Open simulation →</span>
+    </a>
+    <a class="card" href="/simulations/ecdna_micronuclei_TRA_100div.html">
+      <span class="k">Micronucleus origin · 100 divisions</span>
+      <h2>Micronuclei &amp; the EGFR×MYCN hub</h2>
+      <p>A different origin: a micronucleus shatters (chromothripsis) and re-ligates into a hybrid circle fusing two
+        non-homologous loci — EGFR (chr7) and MYCN (chr2) — via an inter-chromosomal translocation. The two-fragment hub
+        amplifies under selection, drawn as a concatenated chr7‖chr2 profile with the founder TRA between the chromosomes.</p>
       <span class="go">Open simulation →</span>
     </a>
   </div>
