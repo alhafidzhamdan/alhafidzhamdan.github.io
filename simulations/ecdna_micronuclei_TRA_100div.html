@@ -57,6 +57,7 @@
   input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   button.btn{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;background:var(--accent);border:none;border-radius:8px;padding:9px 16px;cursor:pointer}
   button.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  button.btn.ghost.on{background:var(--tra);color:#fff;border-color:var(--tra)}
   button.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   @media (prefers-reduced-motion:no-preference){button.btn:hover{filter:brightness(1.06)}button.btn:active{transform:translateY(1px)}}
   .readout{margin-left:auto;display:flex;gap:20px;font-family:var(--mono);font-size:12px;flex-wrap:wrap}
@@ -111,6 +112,7 @@
       <div class="ctl"><label for="npop">Population size N</label><input id="npop" type="number" value="300" min="50" max="3000" step="50"></div>
       <div class="ctl"><label for="sel">Selection strength</label><div class="row">
         <input id="sel" type="range" min="0" max="0.2" step="0.005" value="0.06"><span class="v" id="selv" style="font-family:var(--mono);font-size:13px">0.06</span></div></div>
+      <button class="btn ghost" id="r2" type="button" aria-pressed="false">2nd chromothripsis: off</button>
       <button class="btn" id="run" type="button">New run ↻</button>
       <div class="readout">
         <div><span class="k">Mean CN · gen 100</span><span class="v" id="ro-mean">—</span></div>
@@ -134,7 +136,10 @@
       <b>many junctions born in the one catastrophe</b>: <span style="color:var(--tra)"><b>three TRAs</b></span> arcing <i>between</i> the chromosomes
       plus intra-chromosomal <span style="color:var(--dup)">DUP</span>, <span style="color:var(--del)">DEL</span> and <span style="color:var(--inv)">inversion</span>
       junctions. Every one rides on the amplicon, so their read support all climbs to a <b>maximum at division 100</b>. This is the opposite of the
-      episomal circle's single clean excision — and there is <b>no excision scar</b>.</p>
+      episomal circle's single clean excision — and there is <b>no excision scar</b>.
+      Toggle <b>2nd chromothripsis</b> to have an already-formed circle re-shatter around division 35: it adds
+      <span style="color:var(--tra)"><b>further TRAs</b></span> (dashed) between the two loci. Because that subclone arises later, its
+      junctions ride fewer copies — so their read support sits <b>clearly below</b> the founding round (the two dashed guides).</p>
   </div>
 
   <p class="hint">Model · micronucleus → chromothripsis → hybrid circle (EGFR/chr7 + MYCN/chr2, joined by a TRA) → each division: replicate
@@ -177,7 +182,7 @@
     return traj;
   }
 
-  var state={seed:9,N:300,founder:1,s:0.06,traj:null};
+  var state={seed:9,N:300,founder:1,s:0.06,round2:false,traj:null};
   function recompute(){state.traj=simulate(state.seed,state.N,state.founder,state.s);renderAll();}
 
   // ---- amplification chart -------------------------------------------------
@@ -220,12 +225,20 @@
     {t:'dup',a:[1,15.86e6],b:[1,16.10e6],w:0.58},
     {t:'del',a:[1,15.98e6],b:[1,16.24e6],w:0.50}
   ];
+  var D2=35;  // a SECOND chromothripsis hits one ecDNA copy ~division 35
+  // further TRA fusions from the 2nd round. This subclone arose later, so its
+  // junctions sit on fewer copies -> lower read support than the founding round.
+  var JXN2=[
+    {t:'tra',a:[0,55.14e6],b:[1,16.10e6],w:1.00},
+    {t:'tra',a:[1,15.86e6],b:[0,54.88e6],w:0.85},
+    {t:'tra',a:[0,55.28e6],b:[1,15.86e6],w:0.70}
+  ];
   function cnSeg(seg,mul,k,p){                     // total CN: 2 outside amplicon; 1 + k*mult inside (oscillates)
     if(p<seg[0]||p>=seg[seg.length-1]) return 2;
     var i=0;while(i<seg.length-1 && p>=seg[i+1])i++;
     return 1 + k*mul[i];
   }
-  function profileSVG(k,founderRS,rsMax){
+  function profileSVG(k,founderRS,rsMax,round2RS){
     var c=C(),W=580,H=252,padL=42,padR=46,padT=44,padB=58,gap=34;
     var wW=(W-padL-padR-gap)/2, wins=[WIN7,WIN2], segs=[SEG7,SEG2], muls=[MUL7,MUL2], x0s=[padL,padL+wW+gap];
     var majMax=0;for(var s=0;s<2;s++)for(var i=0;i<muls[s].length;i++){var v=1+k*muls[s][i];if(v>majMax)majMax=v;}
@@ -273,12 +286,27 @@
       svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:col,'stroke-width':isTRA?1.1:0.8,'stroke-opacity':isTRA?0.8:0.5}));
       svg.appendChild(el('path',{d:'M'+x1+','+ay+' Q'+mx+','+(ay-lift)+' '+x2+','+ay,fill:'none',stroke:col,'stroke-width':isTRA?2.4:1.4}));
     });
+    // 2nd-round TRAs (dashed) — a later subclone, so they sit LOWER on the read-support axis
+    if(round2RS>0){
+      JXN2.forEach(function(j){
+        var x1=xg(j.a[0],j.a[1]),x2=xg(j.b[0],j.b[1]),mx=(x1+x2)/2,ay=rs2y(j.w*round2RS);
+        var lift=Math.min(26,8+Math.abs(x2-x1)*0.06);
+        svg.appendChild(el('line',{x1:x1,y1:y0,x2:x1,y2:ay,stroke:c.tra,'stroke-width':0.8,'stroke-opacity':0.4,'stroke-dasharray':'2 2'}));
+        svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:c.tra,'stroke-width':0.8,'stroke-opacity':0.4,'stroke-dasharray':'2 2'}));
+        svg.appendChild(el('path',{d:'M'+x1+','+ay+' Q'+mx+','+(ay-lift)+' '+x2+','+ay,fill:'none',stroke:c.tra,'stroke-width':1.7,'stroke-dasharray':'4 2','stroke-opacity':0.85}));
+      });
+    }
     // read-support ticks + junction annotation (all junctions ride the amplicon)
     svg.appendChild((function(){var t=el('text',{x:W-padR+5,y:y0+3,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t.textContent='0';return t;})());
     svg.appendChild((function(){var t=el('text',{x:W-padR+5,y:yTop+7,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t.textContent=Math.round(rsMax);return t;})());
     var fy=rs2y(founderRS);
     svg.appendChild(el('line',{x1:padL,y1:fy,x2:W-padR,y2:fy,stroke:c.tra,'stroke-width':0.9,'stroke-dasharray':'3 3','stroke-opacity':0.5}));
-    svg.appendChild((function(){var t=el('text',{x:padL+4,y:fy-4,'font-size':9,fill:c.tra,'text-anchor':'start','font-weight':'bold'});t.textContent='TRA · RS '+Math.round(founderRS);return t;})());
+    svg.appendChild((function(){var t=el('text',{x:padL+4,y:fy-4,'font-size':9,fill:c.tra,'text-anchor':'start','font-weight':'bold'});t.textContent=(round2RS>0?'1st round · RS ':'TRA · RS ')+Math.round(founderRS);return t;})());
+    if(round2RS>0){
+      var fy2=rs2y(round2RS);
+      svg.appendChild(el('line',{x1:padL,y1:fy2,x2:W-padR,y2:fy2,stroke:c.tra,'stroke-width':0.8,'stroke-dasharray':'2 3','stroke-opacity':0.4}));
+      svg.appendChild((function(){var t=el('text',{x:padL+4,y:fy2+11,'font-size':8.5,fill:c.tra,'text-anchor':'start'});t.textContent='2nd round · RS '+Math.round(round2RS);return t;})());
+    }
     return svg;
   }
 
@@ -287,14 +315,18 @@
     var ks=CHECK.map(function(g){return g===0?1:Math.max(1,Math.round(tr[g].meanCar));});
     var founderRS=[],run=0;ks.forEach(function(k){run=Math.max(run,k);founderRS.push(run);});
     var rsMax=founderRS[founderRS.length-1];
+    // 2nd-round read support: present from division D2, a growing subclone fraction
+    // of the amplicon copy number — always below the 1st (founding) round.
+    function r2at(g,i){if(!state.round2||g<D2)return 0;return Math.min(0.65,0.15+0.65*(g-D2)/(GENS-D2))*founderRS[i];}
     var titles=['GEN 0 · BIRTH','DIVISION 20','DIVISION 50','DIVISION 100'];
     CHECK.forEach(function(g,i){
+      var r2=r2at(g,i);
       var f=document.createElement('div');f.className='frame'+(g===0?' birth':'');
-      var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+(g===0?'chromothripsis':'EGFR×MYCN hub')+'</b>';f.appendChild(cap);
-      f.appendChild(profileSVG(ks[i],founderRS[i],rsMax));
+      var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+(g===0?'chromothripsis':(r2>0?'+ 2nd round':'EGFR×MYCN hub'))+'</b>';f.appendChild(cap);
+      f.appendChild(profileSVG(ks[i],founderRS[i],rsMax,r2));
       var cn=document.createElement('p');cn.className='cn';
       cn.innerHTML=(g===0?'<b>k=1</b> · chromothriptic circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(tr[g].carry*100)+'% carry')
-        +' · <span style="color:var(--tra)">TRA RS '+founderRS[i]+'</span>';
+        +' · <span style="color:var(--tra)">TRA RS '+founderRS[i]+(r2>0?' / 2nd '+Math.round(r2):'')+'</span>';
       f.appendChild(cn);
       host.appendChild(f);
     });
@@ -313,6 +345,7 @@
   document.getElementById('seed').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.seed=isNaN(v)?0:v;recompute();});
   document.getElementById('npop').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.N=Math.max(50,Math.min(3000,isNaN(v)?300:v));e.target.value=state.N;recompute();});
   document.getElementById('sel').addEventListener('input',function(e){state.s=parseFloat(e.target.value);document.getElementById('selv').textContent=state.s.toFixed(3);recompute();});
+  document.getElementById('r2').addEventListener('click',function(){state.round2=!state.round2;this.setAttribute('aria-pressed',state.round2?'true':'false');this.textContent='2nd chromothripsis: '+(state.round2?'on':'off');this.classList.toggle('on',state.round2);recompute();});
 
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
   if(mq.addEventListener)mq.addEventListener('change',renderAll);
