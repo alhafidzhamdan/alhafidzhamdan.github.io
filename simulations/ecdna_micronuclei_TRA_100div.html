@@ -10,7 +10,7 @@
   :root{
     --bg:#eef3f3; --panel:#ffffff; --panel-2:#f3f7f7; --ink:#132022; --muted:#586568; --faint:#8a9698;
     --line:#d3dede; --grid:#e5eded;
-    --amp:#d92a05; --diploid:#3a9387; --tra:#e0771c; --chr7:#6b8fa8; --chr2:#a86b8f;
+    --amp:#d92a05; --diploid:#3a9387; --tra:#e0771c; --chr7:#6b8fa8; --chr2:#a86b8f; --del:#7fb3e8; --dup:#c1447e; --inv:#8b8d97; --loss:#0077b6;
     --accent:#0e8a8f; --shadow:0 1px 2px rgba(15,30,30,.06),0 8px 24px rgba(15,30,30,.06);
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -18,15 +18,15 @@
   }
   @media (prefers-color-scheme:dark){
     :root{--bg:#0b1214; --panel:#111a1c; --panel-2:#0e1618; --ink:#e6eff0; --muted:#93a3a5; --faint:#697779;
-      --line:#22302f; --grid:#1a2726; --amp:#ff5c3a; --diploid:#4cb6a7; --tra:#f59a3e; --chr7:#8fa9c0; --chr2:#c08fa9;
+      --line:#22302f; --grid:#1a2726; --amp:#ff5c3a; --diploid:#4cb6a7; --tra:#f59a3e; --chr7:#8fa9c0; --chr2:#c08fa9; --del:#6fa6dd; --dup:#e46ba2; --inv:#9a9ca6; --loss:#35a7e6;
       --accent:#3fb8bf; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
       --ideo:#243230; --ideoband:#38504c;}
   }
   :root[data-theme="light"]{--bg:#eef3f3; --panel:#ffffff; --panel-2:#f3f7f7; --ink:#132022; --muted:#586568; --faint:#8a9698;
-    --line:#d3dede; --grid:#e5eded; --amp:#d92a05; --diploid:#3a9387; --tra:#e0771c; --chr7:#6b8fa8; --chr2:#a86b8f;
+    --line:#d3dede; --grid:#e5eded; --amp:#d92a05; --diploid:#3a9387; --tra:#e0771c; --chr7:#6b8fa8; --chr2:#a86b8f; --del:#7fb3e8; --dup:#c1447e; --inv:#8b8d97; --loss:#0077b6;
     --accent:#0e8a8f; --shadow:0 1px 2px rgba(15,30,30,.06),0 8px 24px rgba(15,30,30,.06); --ideo:#e6ecec; --ideoband:#c3d0d0;}
   :root[data-theme="dark"]{--bg:#0b1214; --panel:#111a1c; --panel-2:#0e1618; --ink:#e6eff0; --muted:#93a3a5; --faint:#697779;
-    --line:#22302f; --grid:#1a2726; --amp:#ff5c3a; --diploid:#4cb6a7; --tra:#f59a3e; --chr7:#8fa9c0; --chr2:#c08fa9;
+    --line:#22302f; --grid:#1a2726; --amp:#ff5c3a; --diploid:#4cb6a7; --tra:#f59a3e; --chr7:#8fa9c0; --chr2:#c08fa9; --del:#6fa6dd; --dup:#e46ba2; --inv:#9a9ca6; --loss:#35a7e6;
     --accent:#3fb8bf; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); --ideo:#243230; --ideoband:#38504c;}
 
   *{box-sizing:border-box}
@@ -87,15 +87,19 @@
   <p class="eyebrow">Extrachromosomal DNA · micronucleus origin</p>
   <h1>Born in a <em>micronucleus</em></h1>
   <p class="lede">A lagging chromosome is trapped in a <b>micronucleus</b>, shatters (<b>chromothripsis</b>), and the
-    fragments re-ligate into a single circular ecDNA — one that fuses two <b>non-homologous</b> loci: <b>EGFR</b> on
-    chr7 and <b>MYCN</b> on chr2, stitched by an inter-chromosomal <b>translocation (TRA)</b>. There is <b>no excision
-    scar</b> here — the founding junction is the TRA itself. Under selection on the double-oncogene dosage, the hub
-    amplifies across <b>100 divisions</b>, and the TRA's read support climbs to its maximum at division 100.</p>
+    fragments re-ligate into a single circular ecDNA — a chaotic mosaic that fuses two <b>non-homologous</b> loci,
+    <b>EGFR</b> on chr7 and <b>MYCN</b> on chr2. Chromothripsis never yields a single clean junction: the circle carries
+    <b>many rearrangements</b> at once — <b>multiple TRAs</b> plus intra-chromosomal <b>DEL, DUP and inversions</b> — and the
+    hallmark <b>oscillating copy number</b>. There is <b>no excision scar</b>. Under selection on the double-oncogene dosage
+    the hub amplifies across <b>100 divisions</b>, and every junction's read support climbs to its maximum at division 100.</p>
 
   <div class="legend" aria-hidden="true">
-    <span><i class="swatch" style="background:var(--amp)"></i>amplicon copy number (major)</span>
-    <span><i class="swatch" style="background:var(--diploid)"></i>other allele (minor)</span>
-    <span><i class="swatch" style="background:var(--tra)"></i>founder TRA (EGFR–MYCN fusion)</span>
+    <span><i class="swatch" style="background:var(--amp)"></i>amplified CN</span>
+    <span><i class="swatch" style="background:var(--loss)"></i>deletion (CN&lt;2)</span>
+    <span><i class="swatch" style="background:var(--tra)"></i>TRA (chr7↔chr2)</span>
+    <span><i class="swatch" style="background:var(--dup)"></i>DUP</span>
+    <span><i class="swatch" style="background:var(--del)"></i>DEL</span>
+    <span><i class="swatch" style="background:var(--inv)"></i>INV</span>
     <span><i class="dot" style="background:var(--chr7)"></i>chr7</span>
     <span><i class="dot" style="background:var(--chr2)"></i>chr2</span>
   </div>
@@ -122,14 +126,15 @@
   </div>
 
   <div class="panel">
-    <div class="panel-head"><h2>Genome profile — a two-fragment hub</h2><span class="sub" id="strip-sub">chr7 (EGFR) ‖ chr2 (MYCN) · representative carrier</span></div>
+    <div class="panel-head"><h2>Genome profile — a chromothriptic hub</h2><span class="sub" id="strip-sub">chr7 (EGFR) ‖ chr2 (MYCN) · total CN · oscillating, multi-SV</span></div>
     <div class="strip" id="strip"></div>
-    <p class="note"><b>Reading it:</b> the ecDNA carries one fragment from <span style="color:var(--chr7)"><b>chr7 (EGFR)</b></span> and one from
-      <span style="color:var(--chr2)"><b>chr2 (MYCN)</b></span>, so both loci amplify together — the red major-allele track climbs at each locus
-      while the minor allele stays at 1. The <span style="color:var(--tra)"><b>founder TRA</b></span> arcs <i>between</i> the two chromosomes
-      (the interchromosomal fusion that closes the circle); like any junction on the amplicon its read support tracks copy number, rising to a
-      <span style="color:var(--tra)"><b>maximum at division 100</b></span>. Unlike the episomal circle, there is <b>no excision scar</b> — micronuclear
-      chromothripsis fuses non-homologous loci rather than looping a segment cleanly out of one place.</p>
+    <p class="note"><b>Reading it:</b> the shattered pieces of <span style="color:var(--chr7)"><b>chr7 (EGFR)</b></span> and
+      <span style="color:var(--chr2)"><b>chr2 (MYCN)</b></span> are stitched back in scrambled order, giving the tell-tale <b>oscillating copy
+      number</b> — segments bounce between amplified levels and <span style="color:var(--loss)">deletions</span>. The circle is held together by
+      <b>many junctions born in the one catastrophe</b>: <span style="color:var(--tra)"><b>three TRAs</b></span> arcing <i>between</i> the chromosomes
+      plus intra-chromosomal <span style="color:var(--dup)">DUP</span>, <span style="color:var(--del)">DEL</span> and <span style="color:var(--inv)">inversion</span>
+      junctions. Every one rides on the amplicon, so their read support all climbs to a <b>maximum at division 100</b>. This is the opposite of the
+      episomal circle's single clean excision — and there is <b>no excision scar</b>.</p>
   </div>
 
   <p class="hint">Model · micronucleus → chromothripsis → hybrid circle (EGFR/chr7 + MYCN/chr2, joined by a TRA) → each division: replicate
@@ -146,6 +151,7 @@
   function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
   function C(){return{ink:cssv('--ink'),grid:cssv('--grid'),faint:cssv('--faint'),muted:cssv('--muted'),line:cssv('--line'),
     amp:cssv('--amp'),diploid:cssv('--diploid'),tra:cssv('--tra'),chr7:cssv('--chr7'),chr2:cssv('--chr2'),
+    del:cssv('--del'),dup:cssv('--dup'),inv:cssv('--inv'),loss:cssv('--loss'),
     ideo:cssv('--ideo'),ideoband:cssv('--ideoband')};}
   var NS="http://www.w3.org/2000/svg";
   function el(t,a){var e=document.createElementNS(NS,t);if(a)for(var k in a)e.setAttribute(k,a[k]);return e;}
@@ -198,63 +204,81 @@
     var lb=el('text',{x:W-padR,y:11,'font-size':9,fill:c.diploid,'text-anchor':'end'});lb.textContent='% carrying';svg.appendChild(lb);
   }
 
-  // ---- two-locus genome profile (EpiTracer multi-locus style) -------------
-  function alleleAt(win,frag,k,p){var A=(p>=frag.a&&p<frag.b)?k:1,B=1;return A>=B?{maj:A,min:B}:{maj:B,min:A};}
+  // ---- chromothriptic two-locus profile (oscillating CN + many junctions) --
+  // One micronuclear catastrophe shatters both loci and stitches the pieces into a
+  // single circle: MULTIPLE TRAs (chr7<->chr2) PLUS intra-chromosomal DEL/DUP/INV,
+  // and the hallmark oscillating copy number. Every junction rides on the amplicon,
+  // so read support tracks copy number, peaking at division 100.
+  var SEG7=[54.74e6,54.88e6,55.00e6,55.14e6,55.28e6,55.42e6], MUL7=[1,0,2,1,2];
+  var SEG2=[15.72e6,15.86e6,15.98e6,16.10e6,16.24e6],          MUL2=[1,2,0,2];
+  // reconstruction junctions. locus 0 = chr7, 1 = chr2; w = read-support weight.
+  var JXN=[
+    {t:'tra',a:[0,55.42e6],b:[1,15.72e6],w:1.00},
+    {t:'tra',a:[1,16.24e6],b:[0,54.74e6],w:0.90},
+    {t:'tra',a:[0,55.00e6],b:[1,15.98e6],w:0.80},
+    {t:'h2h',a:[0,54.88e6],b:[0,55.28e6],w:0.66},
+    {t:'dup',a:[1,15.86e6],b:[1,16.10e6],w:0.58},
+    {t:'del',a:[1,15.98e6],b:[1,16.24e6],w:0.50}
+  ];
+  function cnSeg(seg,mul,k,p){                     // total CN: 2 outside amplicon; 1 + k*mult inside (oscillates)
+    if(p<seg[0]||p>=seg[seg.length-1]) return 2;
+    var i=0;while(i<seg.length-1 && p>=seg[i+1])i++;
+    return 1 + k*mul[i];
+  }
   function profileSVG(k,founderRS,rsMax){
     var c=C(),W=580,H=252,padL=42,padR=46,padT=44,padB=58,gap=34;
-    var wW=(W-padL-padR-gap)/2;
-    var yMax=niceCeil(k);
+    var wW=(W-padL-padR-gap)/2, wins=[WIN7,WIN2], segs=[SEG7,SEG2], muls=[MUL7,MUL2], x0s=[padL,padL+wW+gap];
+    var majMax=0;for(var s=0;s<2;s++)for(var i=0;i<muls[s].length;i++){var v=1+k*muls[s][i];if(v>majMax)majMax=v;}
+    var yMax=niceCeil(majMax);
     var svg=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img'});
     function yv(v){return H-padB-(v/yMax)*(H-padT-padB);}
     var y0=yv(0),yTop=yv(yMax);
     function rs2y(rs){return y0-Math.max(0,Math.min(1,rs/rsMax))*(y0-yTop);}
-    // shared y grid + copy-number ticks
+    function xg(l,p){return x0s[l]+(p-wins[l].s)/(wins[l].e-wins[l].s)*wW;}
     [0,yMax/2,yMax].forEach(function(v){svg.appendChild(el('line',{x1:padL,y1:yv(v),x2:W-padR,y2:yv(v),stroke:c.grid,'stroke-width':1}));
       var t=el('text',{x:padL-6,y:yv(v)+3.5,'font-size':10,fill:c.faint,'text-anchor':'end'});t.textContent=v;svg.appendChild(t);});
     var cy=(padT+y0)/2;
-    svg.appendChild((function(){var t=el('text',{x:13,y:cy,'font-size':10,fill:c.muted,'text-anchor':'middle',transform:'rotate(-90 13 '+cy+')'});t.textContent='allele copy number';return t;})());
+    svg.appendChild((function(){var t=el('text',{x:13,y:cy,'font-size':10,fill:c.muted,'text-anchor':'middle',transform:'rotate(-90 13 '+cy+')'});t.textContent='copy number';return t;})());
     svg.appendChild((function(){var t=el('text',{x:W-12,y:cy,'font-size':10,fill:c.muted,'text-anchor':'middle',transform:'rotate(90 '+(W-12)+' '+cy+')'});t.textContent='read support';return t;})());
 
-    // one locus panel; returns the x-position of the TRA breakpoint
-    function locus(win,frag,gene,geneName,x0,chrName,chrCol,traBp){
-      function xg(p){return x0+(p-win.s)/(win.e-win.s)*wW;}
-      // amplified shading
-      if(alleleAt(win,frag,k,(frag.a+frag.b)/2).maj>2)
-        svg.appendChild(el('rect',{x:xg(frag.a),y:yTop,width:xg(frag.b)-xg(frag.a),height:y0-yTop,fill:c.amp,'fill-opacity':0.07}));
-      // CN step tracks: minor then major
-      var seg=[win.s,frag.a,frag.b,win.e];
-      function track(which,col,lw){for(var i=0;i<seg.length-1;i++){var v=alleleAt(win,frag,k,(seg[i]+seg[i+1])/2)[which];
-        svg.appendChild(el('line',{x1:xg(seg[i]),y1:yv(v),x2:xg(seg[i+1]),y2:yv(v),stroke:col,'stroke-width':lw}));
-        if(i>0){var pv=alleleAt(win,frag,k,(seg[i-1]+seg[i])/2)[which];if(pv!==v)svg.appendChild(el('line',{x1:xg(seg[i]),y1:yv(pv),x2:xg(seg[i]),y2:yv(v),stroke:col,'stroke-width':lw,'stroke-opacity':0.45}));}}}
-      track('min',c.diploid,2.2);track('maj',c.amp,2.8);
-      // gene label + dot
-      var gx=(xg(gene.a)+xg(gene.b))/2;
+    function locus(l,gene,geneName,chrName,chrCol){
+      var win=wins[l],seg=segs[l],mul=muls[l];
+      var bnd=[win.s].concat(seg,[win.e]).filter(function(v,i,a){return i===0||v>a[i-1];});
+      for(var i=0;i<bnd.length-1;i++){
+        var p0=bnd[i],p1=bnd[i+1],v=cnSeg(seg,mul,k,(p0+p1)/2);
+        var col=v>2?c.amp:(v<2?c.loss:c.diploid);
+        if(v>2)svg.appendChild(el('rect',{x:xg(l,p0),y:yTop,width:xg(l,p1)-xg(l,p0),height:y0-yTop,fill:c.amp,'fill-opacity':0.05}));
+        svg.appendChild(el('line',{x1:xg(l,p0),y1:yv(v),x2:xg(l,p1),y2:yv(v),stroke:col,'stroke-width':2.6}));
+        if(i>0){var pv=cnSeg(seg,mul,k,(bnd[i-1]+p0)/2);if(pv!==v)svg.appendChild(el('line',{x1:xg(l,p0),y1:yv(pv),x2:xg(l,p0),y2:yv(v),stroke:c.line,'stroke-width':1}));}
+      }
+      var gx=(xg(l,gene.a)+xg(l,gene.b))/2;
       svg.appendChild((function(){var t=el('text',{x:gx,y:padT-19,'font-size':11,fill:c.ink,'text-anchor':'middle','font-style':'italic'});t.textContent=geneName;return t;})());
       svg.appendChild(el('circle',{cx:gx,cy:padT-9,r:2,fill:c.ink}));
-      // ideogram + Mb axis + chr label
-      var idTop=y0+15,idBot=idTop+13;
-      svg.appendChild(el('rect',{x:xg(win.s),y:idTop,width:xg(win.e)-xg(win.s),height:idBot-idTop,fill:c.ideo,stroke:c.line,'stroke-width':0.7,rx:2}));
-      svg.appendChild(el('rect',{x:xg((win.s+win.e)/2-0.18e6),y:idTop+0.7,width:xg((win.s+win.e)/2+0.18e6)-xg((win.s+win.e)/2-0.18e6),height:idBot-idTop-1.4,fill:c.ideoband}));
-      var mid=(win.s+win.e)/2;
-      [mid-0.4e6,mid,mid+0.4e6].forEach(function(p){svg.appendChild(el('line',{x1:xg(p),y1:idBot+2,x2:xg(p),y2:idBot+6,stroke:c.faint,'stroke-width':0.9}));
-        var t=el('text',{x:xg(p),y:idBot+15,'font-size':8.5,fill:c.faint,'text-anchor':'middle'});t.textContent=(p/1e6).toFixed(1);svg.appendChild(t);});
-      var cl=el('text',{x:(xg(win.s)+xg(win.e))/2,y:idBot+28,'font-size':10.5,fill:chrCol,'text-anchor':'middle','font-weight':'bold'});cl.textContent=chrName;svg.appendChild(cl);
-      return xg(traBp);
+      var idTop=y0+15,idBot=idTop+13,mid=(win.s+win.e)/2;
+      svg.appendChild(el('rect',{x:xg(l,win.s),y:idTop,width:xg(l,win.e)-xg(l,win.s),height:idBot-idTop,fill:c.ideo,stroke:c.line,'stroke-width':0.7,rx:2}));
+      svg.appendChild(el('rect',{x:xg(l,mid-0.18e6),y:idTop+0.7,width:xg(l,mid+0.18e6)-xg(l,mid-0.18e6),height:idBot-idTop-1.4,fill:c.ideoband}));
+      [mid-0.4e6,mid,mid+0.4e6].forEach(function(p){svg.appendChild(el('line',{x1:xg(l,p),y1:idBot+2,x2:xg(l,p),y2:idBot+6,stroke:c.faint,'stroke-width':0.9}));
+        var t=el('text',{x:xg(l,p),y:idBot+15,'font-size':8.5,fill:c.faint,'text-anchor':'middle'});t.textContent=(p/1e6).toFixed(1);svg.appendChild(t);});
+      svg.appendChild((function(){var t=el('text',{x:(xg(l,win.s)+xg(l,win.e))/2,y:idBot+28,'font-size':10.5,fill:chrCol,'text-anchor':'middle','font-weight':'bold'});t.textContent=chrName;return t;})());
     }
-    var x7=locus(WIN7,FRAG7,EGFR,'EGFR',padL,'Chr 7',c.chr7,FRAG7.b);
-    var x2=locus(WIN2,FRAG2,MYCN,'MYCN',padL+wW+gap,'Chr 2',c.chr2,FRAG2.a);
+    locus(0,EGFR,'EGFR','Chr 7',c.chr7);
+    locus(1,MYCN,'MYCN','Chr 2',c.chr2);
 
-    // founder TRA arc between the two chromosomes (read-support height, shared axis)
-    var ay=rs2y(founderRS),mx=(x7+x2)/2;
-    svg.appendChild(el('line',{x1:x7,y1:y0,x2:x7,y2:ay,stroke:c.tra,'stroke-width':1.2,'stroke-opacity':0.8}));
-    svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:c.tra,'stroke-width':1.2,'stroke-opacity':0.8}));
-    svg.appendChild(el('path',{d:'M'+x7+','+ay+' Q'+mx+','+(ay-22)+' '+x2+','+ay,fill:'none',stroke:c.tra,'stroke-width':2.8}));
-    // read-support ticks + founder TRA annotation
+    // every chromothriptic junction — read support ~ copy number (rises to max at div100)
+    var jcol={tra:c.tra,dup:c.dup,del:c.del,h2h:c.inv,t2t:c.inv};
+    JXN.forEach(function(j){
+      var x1=xg(j.a[0],j.a[1]),x2=xg(j.b[0],j.b[1]),mx=(x1+x2)/2,ay=rs2y(j.w*founderRS);
+      var isTRA=j.t==='tra',col=jcol[j.t]||c.inv,lift=Math.min(30,9+Math.abs(x2-x1)*0.07);
+      svg.appendChild(el('line',{x1:x1,y1:y0,x2:x1,y2:ay,stroke:col,'stroke-width':isTRA?1.1:0.8,'stroke-opacity':isTRA?0.8:0.5}));
+      svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:col,'stroke-width':isTRA?1.1:0.8,'stroke-opacity':isTRA?0.8:0.5}));
+      svg.appendChild(el('path',{d:'M'+x1+','+ay+' Q'+mx+','+(ay-lift)+' '+x2+','+ay,fill:'none',stroke:col,'stroke-width':isTRA?2.4:1.4}));
+    });
+    // read-support ticks + junction annotation (all junctions ride the amplicon)
     svg.appendChild((function(){var t=el('text',{x:W-padR+5,y:y0+3,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t.textContent='0';return t;})());
     svg.appendChild((function(){var t=el('text',{x:W-padR+5,y:yTop+7,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t.textContent=Math.round(rsMax);return t;})());
     var fy=rs2y(founderRS);
     svg.appendChild(el('line',{x1:padL,y1:fy,x2:W-padR,y2:fy,stroke:c.tra,'stroke-width':0.9,'stroke-dasharray':'3 3','stroke-opacity':0.5}));
-    svg.appendChild((function(){var t=el('text',{x:mx,y:ay-26,'font-size':9,fill:c.tra,'text-anchor':'middle','font-weight':'bold'});t.textContent='TRA · RS '+Math.round(founderRS);return t;})());
+    svg.appendChild((function(){var t=el('text',{x:padL+4,y:fy-4,'font-size':9,fill:c.tra,'text-anchor':'start','font-weight':'bold'});t.textContent='TRA · RS '+Math.round(founderRS);return t;})());
     return svg;
   }
 
@@ -266,10 +290,10 @@
     var titles=['GEN 0 · BIRTH','DIVISION 20','DIVISION 50','DIVISION 100'];
     CHECK.forEach(function(g,i){
       var f=document.createElement('div');f.className='frame'+(g===0?' birth':'');
-      var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+(g===0?'micronuclear TRA':'EGFR×MYCN hub')+'</b>';f.appendChild(cap);
+      var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+(g===0?'chromothripsis':'EGFR×MYCN hub')+'</b>';f.appendChild(cap);
       f.appendChild(profileSVG(ks[i],founderRS[i],rsMax));
       var cn=document.createElement('p');cn.className='cn';
-      cn.innerHTML=(g===0?'<b>k=1</b> · hybrid circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(tr[g].carry*100)+'% carry')
+      cn.innerHTML=(g===0?'<b>k=1</b> · chromothriptic circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(tr[g].carry*100)+'% carry')
         +' · <span style="color:var(--tra)">TRA RS '+founderRS[i]+'</span>';
       f.appendChild(cn);
       host.appendChild(f);
