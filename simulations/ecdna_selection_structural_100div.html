@@ -171,7 +171,9 @@
       <span style="color:var(--del)">DEL</span> of a passenger flank (the dip to CN 1), and at <b>division 50</b> an
       <span style="color:var(--h2h)">inversion</span> adding paired <span style="color:var(--h2h)">h2h</span> /
       <span style="color:var(--t2t)">t2t</span> junctions. Each rearrangement that lifts EGFR dosage is then swept to
-      fixation by selection.</p>
+      fixation by selection. <b>Arc height is read support</b> (right axis, shared across panels): the founder junction rides on
+      every copy, so its read support tracks the amplicon's copy number — climbing each division to a
+      <span style="color:var(--founder)"><b>maximum at division 100</b></span>, marked by the amber guide.</p>
   </div>
 
   <p class="hint">Model · one-time excision → each division replicate (k→2k, capped 200) + Binomial(2k,½) partition →
@@ -314,7 +316,7 @@
     if(p<CIRC.a||p>=CIRC.b){A=1;B=1;} else {A=k*multAt(ver,p);B=1;}
     return A>=B?{maj:A,min:B}:{maj:B,min:A};
   }
-  function profileSVG(ver,k){
+  function profileSVG(ver,k,founderRS,rsMax){
     var c=C(),W=470,H=250,padL=42,padR=44,padT=44,padB=58;
     var bpAll=[WIN.s,CIRC.a,DEL.a,DEL.b,DUP.a,DUP.b,CIRC.b,WIN.e].sort(function(a,b){return a-b;});
     var bp=[];for(var i=0;i<bpAll.length;i++)if(i===0||bpAll[i]>bpAll[i-1])bp.push(bpAll[i]);
@@ -341,16 +343,29 @@
     }
     track('min',c.diploid,2.2);
     track('maj',c.amp,2.8);
-    // SV arcs + breakpoint drop-lines (read-support height, tiered by type)
+    // SV arcs + breakpoint drop-lines on a SHARED read-support axis (0..rsMax).
+    // Read support = number of ecDNA copies bearing the junction. The founder
+    // circularisation join sits on every copy, so its read support = the amplicon
+    // copy number (founderRS) — rising each division to its maximum at division 100.
+    // Acquired SVs ride a fixed fraction below. rsMax is shared across the panels,
+    // so arc heights are directly comparable and the founder peaks at the last panel.
     var jc={founder:c.founder,dup:c.dup,del:c.del,h2h:c.h2h,t2t:c.t2t};
-    var tierH=[0.52,0.66,0.80,0.92];
+    var wRS={founder:1.0,dup:0.72,del:0.62,h2h:0.52,t2t:0.44};
+    var yTop=yv(yMax);
+    function rs2y(rs){return y0-Math.max(0,Math.min(1,rs/rsMax))*(y0-yTop);}
     junctions(ver).forEach(function(j){
-      var x1=xg(j.x1),x2=xg(j.x2),mx=(x1+x2)/2,ay=yv(yMax*tierH[j.tier]);
-      var founder=j.t==='founder',lw=founder?2.6:1.7,op=founder?0.75:0.5;
-      svg.appendChild(el('line',{x1:x1,y1:y0,x2:x1,y2:ay,stroke:jc[j.t],'stroke-width':founder?1.1:0.9,'stroke-opacity':op}));
-      svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:jc[j.t],'stroke-width':founder?1.1:0.9,'stroke-opacity':op}));
-      svg.appendChild(el('path',{d:'M'+x1+','+ay+' Q'+mx+','+(ay-16)+' '+x2+','+ay,fill:'none',stroke:jc[j.t],'stroke-width':lw}));
+      var x1=xg(j.x1),x2=xg(j.x2),mx=(x1+x2)/2,ay=rs2y(wRS[j.t]*founderRS);
+      var isF=j.t==='founder',lw=isF?2.8:1.5,op=isF?0.85:0.42;
+      svg.appendChild(el('line',{x1:x1,y1:y0,x2:x1,y2:ay,stroke:jc[j.t],'stroke-width':isF?1.2:0.8,'stroke-opacity':op}));
+      svg.appendChild(el('line',{x1:x2,y1:y0,x2:x2,y2:ay,stroke:jc[j.t],'stroke-width':isF?1.2:0.8,'stroke-opacity':op}));
+      svg.appendChild(el('path',{d:'M'+x1+','+ay+' Q'+mx+','+(ay-14)+' '+x2+','+ay,fill:'none',stroke:jc[j.t],'stroke-width':lw}));
     });
+    // read-support right-axis scale (shared 0..rsMax) + prioritised founder annotation
+    var t0=el('text',{x:W-padR+5,y:y0+3,'font-size':8.5,fill:c.faint,'text-anchor':'start'});t0.textContent='0';svg.appendChild(t0);
+    var tm=el('text',{x:W-padR+5,y:yTop+7,'font-size':8.5,fill:c.faint,'text-anchor':'start'});tm.textContent=Math.round(rsMax);svg.appendChild(tm);
+    var fy=rs2y(founderRS);
+    svg.appendChild(el('line',{x1:padL,y1:fy,x2:W-padR,y2:fy,stroke:c.founder,'stroke-width':0.9,'stroke-dasharray':'3 3','stroke-opacity':0.55}));
+    var fl=el('text',{x:padL+4,y:fy-4,'font-size':9,fill:c.founder,'text-anchor':'start','font-weight':'bold'});fl.textContent='founder RS '+Math.round(founderRS);svg.appendChild(fl);
     // EGFR gene: label on top, dot below (EpiTracer style)
     var gx=(xg(EGFR.a)+xg(EGFR.b))/2;
     var gl=el('text',{x:gx,y:padT-19,'font-size':11,fill:c.ink,'text-anchor':'middle','font-style':'italic'});gl.textContent='EGFR';svg.appendChild(gl);
@@ -370,15 +385,21 @@
     var host=document.getElementById('strip');host.textContent='';var tr=state.traj;
     var verAt=[1,2,3,3]; // structure shown at each checkpoint
     var ks=CHECK.map(function(g,i){return g===0?1:Math.max(1,Math.round(tr[g].meanCar));});
+    // Founder-SV read support = amplicon copy number, forced monotonic (running
+    // max) so it climbs every division to its maximum at division 100 (the shared
+    // rsMax used to scale the read-support axis across all four panels).
+    var founderRS=[],run=0;ks.forEach(function(k){run=Math.max(run,k);founderRS.push(run);});
+    var rsMax=founderRS[founderRS.length-1];
     var titles=['GEN 0 · BIRTH','DIVISION 20','DIVISION 50','DIVISION 100'];
     var vlab=['v1','v2','v3','v3'];
     CHECK.forEach(function(g,i){
       var f=document.createElement('div');f.className='frame f'+g;
       var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+vlab[i]+'</b>';f.appendChild(cap);
-      f.appendChild(profileSVG(verAt[i],ks[i]));
+      f.appendChild(profileSVG(verAt[i],ks[i],founderRS[i],rsMax));
       var cn=document.createElement('p');cn.className='cn';
       var p=tr[g];
-      cn.innerHTML=g===0?'<b>k=1</b> · founder circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(p.carry*100)+'% carry';
+      cn.innerHTML=(g===0?'<b>k=1</b> · founder circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(p.carry*100)+'% carry')
+        +' · <span style="color:var(--founder)">founder RS '+founderRS[i]+'</span>';
       f.appendChild(cn);
       host.appendChild(f);
     });
