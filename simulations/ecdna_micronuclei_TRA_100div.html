@@ -137,9 +137,10 @@
       plus intra-chromosomal <span style="color:var(--dup)">DUP</span>, <span style="color:var(--del)">DEL</span> and <span style="color:var(--inv)">inversion</span>
       junctions. Every one rides on the amplicon, so their read support all climbs to a <b>maximum at division 100</b>. This is the opposite of the
       episomal circle's single clean excision — and there is <b>no excision scar</b>.
-      Toggle <b>2nd chromothripsis</b> to have an already-formed circle re-shatter around division 35: it adds
-      <span style="color:var(--tra)"><b>further TRAs</b></span> (dashed) between the two loci. Because that subclone arises later, its
-      junctions ride fewer copies — so their read support sits <b>clearly below</b> the founding round (the two dashed guides).</p>
+      Toggle <b>2nd chromothripsis</b> to have an already-formed circle re-shatter around division 35: the copy-number profile
+      is <b>re-segmented</b> (finer steps, new duplications and deletions), and it gains <span style="color:var(--tra)"><b>further TRAs</b></span>
+      (dashed) between the two loci. Because that subclone arises later, its junctions ride fewer copies — so their read support sits
+      <b>clearly below</b> the founding round (the two dashed guides).</p>
   </div>
 
   <p class="hint">Model · micronucleus → chromothripsis → hybrid circle (EGFR/chr7 + MYCN/chr2, joined by a TRA) → each division: replicate
@@ -233,6 +234,10 @@
     {t:'tra',a:[1,15.86e6],b:[0,54.88e6],w:0.85},
     {t:'tra',a:[0,55.28e6],b:[1,15.86e6],w:0.70}
   ];
+  // the 2nd round re-shatters the amplicon: FINER segmentation with new dup/del steps.
+  // (Breakpoints are a superset of the 1st-round set, so all junctions still align.)
+  var SEG7b=[54.74e6,54.88e6,55.00e6,55.08e6,55.14e6,55.28e6,55.36e6,55.42e6], MUL7b=[1,0,3,2,1,0,2];
+  var SEG2b=[15.72e6,15.80e6,15.86e6,15.98e6,16.10e6,16.18e6,16.24e6],          MUL2b=[1,3,2,0,3,1];
   function cnSeg(seg,mul,k,p){                     // total CN: 2 outside amplicon; 1 + k*mult inside (oscillates)
     if(p<seg[0]||p>=seg[seg.length-1]) return 2;
     var i=0;while(i<seg.length-1 && p>=seg[i+1])i++;
@@ -240,7 +245,9 @@
   }
   function profileSVG(k,founderRS,rsMax,round2RS){
     var c=C(),W=580,H=252,padL=42,padR=46,padT=44,padB=58,gap=34;
-    var wW=(W-padL-padR-gap)/2, wins=[WIN7,WIN2], segs=[SEG7,SEG2], muls=[MUL7,MUL2], x0s=[padL,padL+wW+gap];
+    var use2=round2RS>0;   // 2nd round re-segments the copy-number profile (finer, new dup/del steps)
+    var wW=(W-padL-padR-gap)/2, wins=[WIN7,WIN2], x0s=[padL,padL+wW+gap];
+    var segs=use2?[SEG7b,SEG2b]:[SEG7,SEG2], muls=use2?[MUL7b,MUL2b]:[MUL7,MUL2];
     var majMax=0;for(var s=0;s<2;s++)for(var i=0;i<muls[s].length;i++){var v=1+k*muls[s][i];if(v>majMax)majMax=v;}
     var yMax=niceCeil(majMax);
     var svg=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img'});
