@@ -4,10 +4,11 @@ Interactive simulations of extrachromosomal DNA (ecDNA) birth and evolution, bui
 accompany [EpiTracer](https://github.com/alhafidzhamdan/EpiTracer). Amplicons are modelled
 on EGFR/chr7 (and MYCN/chr2) to mirror EpiTracer's plotting.
 
-`index.html` is a **tabbed hub** (browser-style tabs) that embeds the four scenario pages
-below via iframes: **Neutral drift**, **Under selection**, **Micronucleus · TRA**, and
-**Spatial · niches**. Each scenario is also a **self-contained static HTML page** (inline
-CSS/JS, theme-aware) that works on its own. Live: https://alhafidzhamdan.github.io/simulations/
+`index.html` is a **tabbed hub** (browser-style tabs) that embeds the five scenario pages
+below via iframes: **Neutral drift**, **Under selection**, **Micronucleus · TRA**,
+**Spatial · niches**, and **HSR ↔ ecDNA**. Each scenario is also a **self-contained static
+HTML page** (inline CSS/JS, theme-aware) that works on its own.
+Live: https://alhafidzhamdan.github.io/simulations/
 
 ## Contents
 
@@ -17,6 +18,7 @@ CSS/JS, theme-aware) that works on its own. Live: https://alhafidzhamdan.github.
 | `ecdna_selection_structural_100div.html` | Same founder episome under **positive selection** to division 100, with intramolecular rearrangements seeded at divisions 20 (DUP + DEL) and 50 (inversion → h2h/t2t) — all SV types except TRA. Amplification, structural clonal sweeps, and `plot_sv_linear`-style genome profiles with the founder circularisation SV highlighted, its read support climbing to a maximum at division 100, and the **excision scar** shown from division 2 (low, flat, chromosomal). | [artifact](https://claude.ai/code/artifact/80961021-05cb-4df8-966d-556bf7a5b174) |
 | `ecdna_micronuclei_TRA_100div.html` | A **second origin mechanism**: micronucleus → chromothripsis → a hybrid ecDNA fusing two non-homologous loci, **EGFR (chr7)** and **MYCN (chr2)**, via an inter-chromosomal **TRA** (no excision scar). Two-fragment hub amplified under selection to division 100, drawn as a concatenated chr7‖chr2 profile with the founder TRA between the chromosomes and its read support rising to a maximum at division 100. | — |
 | `ecdna_spatial_niches_100div.html` | **Spatial selection** across two tumour niches (A, B) that start identical. Each is its own Wright–Fisher population; niche A gets a local fitness advantage ∝ copy number while niche B stays neutral. A scrubable spatial cell-map (coloured by copy number) plus the diverging mean-copy trajectories show ecDNA spatial heterogeneity emerging — A amplifies and fixes, B drifts to loss. | — |
+| `ecdna_hsr_interconversion_100div.html` | **ecDNA ↔ HSR interconversion**: the same EGFR amplicon lives as either acentric **ecDNA** (replicate + random `Binomial(2k, ½)` partition — fast but unstable) or a chromosomal **homogeneously staining region (HSR)** (a tandem array inherited intact by both daughters — stable, low-plasticity). Circles integrate into the array (rate `p(int)`) and array copies re-excise (rate `p(exc)`) under dosage selection. Shows the dosage hand-off from circles to the array, heterogeneity (CV) collapsing as the mirror image of the rising HSR share, and EpiTracer-style profiles decomposing the locus into a solid HSR block + ecDNA circles. | — |
 
 ## Model (shared)
 
