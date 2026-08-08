@@ -72,6 +72,18 @@
   .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px}
   @media (max-width:360px){.strip{grid-template-columns:1fr}}
   .frame{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px}
+  .strip .frame{cursor:zoom-in;transition:border-color .12s ease}
+  .strip .frame:hover{border-color:var(--accent)}
+  .strip .frame:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .zoverlay{position:absolute;left:0;top:0;width:100%;z-index:900;background:rgba(8,12,20,.55)}
+  .zmodal{position:absolute;left:50%;transform:translateX(-50%);width:min(620px,92vw);background:var(--panel);border:1px solid var(--accent);border-radius:14px;box-shadow:var(--shadow);padding:18px 18px 14px}
+  .zmodal .zclose{position:absolute;top:8px;right:12px;border:none;background:none;color:var(--muted);font-size:24px;line-height:1;cursor:pointer;font-family:var(--mono)}
+  .zmodal .zclose:hover{color:var(--ink)}
+  .zmodal .ztitle{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 10px}
+  .zmodal .zbody{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .zmodal .zsvg{flex:1 1 360px;min-width:240px}
+  .zmodal .zinfo{flex:1 1 150px;font-family:var(--mono);font-size:14px;color:var(--ink);line-height:1.8}
+  .zmodal .zinfo b{font-size:17px}
   .frame.birth{border-color:var(--tra);box-shadow:0 0 0 1px var(--tra) inset}
   .frame .cap{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.05em;margin:0 2px 4px;display:flex;justify-content:space-between}
   .frame .cap b{color:var(--muted);font-weight:400}
@@ -128,7 +140,7 @@
   </div>
 
   <div class="panel">
-    <div class="panel-head"><h2>Genome profile — a chromothriptic hub</h2><span class="sub" id="strip-sub">chr7 (EGFR) ‖ chr2 (MYCN) · total CN · oscillating, multi-SV</span></div>
+    <div class="panel-head"><h2>Genome profile — a chromothriptic hub</h2><span class="sub" id="strip-sub">chr7 (EGFR) ‖ chr2 (MYCN) · total CN · click any frame to enlarge</span></div>
     <div class="strip" id="strip"></div>
     <p class="note"><b>Reading it:</b> the shattered pieces of <span style="color:var(--chr7)"><b>chr7 (EGFR)</b></span> and
       <span style="color:var(--chr2)"><b>chr2 (MYCN)</b></span> are stitched back in scrambled order, giving the tell-tale <b>oscillating copy
@@ -317,7 +329,30 @@
     return svg;
   }
 
+  function onZoomKey(e){if(e.key==='Escape')closeZoom();}
+  function closeZoom(){var o=document.getElementById('zoverlay');if(o&&o.parentNode)o.parentNode.removeChild(o);document.removeEventListener('keydown',onZoomKey);}
+  function showZoom(frameEl,item){
+    closeZoom();
+    var ov=document.createElement('div');ov.id='zoverlay';ov.className='zoverlay';
+    ov.style.height=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight)+'px';
+    ov.addEventListener('click',closeZoom);
+    var m=document.createElement('div');m.className='zmodal';
+    m.addEventListener('click',function(e){e.stopPropagation();});
+    var close=document.createElement('button');close.className='zclose';close.type='button';close.setAttribute('aria-label','close enlarged profile');close.textContent='×';close.addEventListener('click',closeZoom);m.appendChild(close);
+    var title=document.createElement('p');title.className='ztitle';title.textContent=item.title;m.appendChild(title);
+    var body=document.createElement('div');body.className='zbody';
+    var sw=document.createElement('div');sw.className='zsvg';sw.appendChild(item.svg());body.appendChild(sw);
+    var info=document.createElement('div');info.className='zinfo';info.innerHTML=item.info;body.appendChild(info);
+    m.appendChild(body);
+    ov.appendChild(m);document.body.appendChild(ov);
+    var r=frameEl.getBoundingClientRect();var cy=r.top+window.pageYOffset+r.height/2,mh=m.offsetHeight;
+    var top=cy-mh/2,maxTop=parseInt(ov.style.height,10)-mh-8;if(top>maxTop)top=maxTop;if(top<8)top=8;m.style.top=top+'px';
+    document.addEventListener('keydown',onZoomKey);
+    try{m.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}
+  }
+
   function renderStrip(){
+    closeZoom();
     var host=document.getElementById('strip');host.textContent='';var tr=state.traj;
     var ks=CHECK.map(function(g){return g===0?1:Math.max(1,Math.round(tr[g].meanCar));});
     var founderRS=[],run=0;ks.forEach(function(k){run=Math.max(run,k);founderRS.push(run);});
@@ -335,6 +370,12 @@
       cn.innerHTML=(g===0?'<b>k=1</b> · chromothriptic circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(tr[g].carry*100)+'% carry')
         +' · <span style="color:var(--tra)">TRA RS '+founderRS[i]+(r2>0?' / 2nd '+Math.round(r2):'')+'</span>';
       f.appendChild(cn);
+      var kk=ks[i],frs=founderRS[i],r2c=r2;
+      var zt=(g===0?'Gen 0 · chromothripsis':titles[i]);
+      var item={title:zt,svg:function(){return profileSVG(kk,frs,rsMax,r2c);},info:cn.innerHTML.replace(/ · /g,'<br>')};
+      f.setAttribute('role','button');f.tabIndex=0;f.setAttribute('aria-label','Enlarge '+titles[i]+' profile');
+      f.addEventListener('click',function(){showZoom(f,item);});
+      f.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();showZoom(f,item);}});
       host.appendChild(f);
     });
   }
