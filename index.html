@@ -118,16 +118,21 @@ layout: default
 
 <!-- ============================ SOFTWARE ============================ -->
 <section id="software" class="section section-split">
-  <h2 class="split-label">Software</h2>
+  <h2 class="split-label">Software/pipelines</h2>
   <div class="split-content">
     <ul class="resource-list">
       {% for item in site.data.software %}
-      <li class="resource">
-        <span class="resource-head">
-          <a class="resource-name" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>
-          {% if item.source %}<span class="resource-tag">{{ item.source }}</span>{% endif %}
-        </span>
-        {% if item.description %}<span class="resource-desc">{{ item.description }}</span>{% endif %}
+      <li>
+        <details class="resource">
+          <summary class="resource-head">
+            <span class="resource-name">{{ item.name }}</span>
+            {% if item.source %}<span class="resource-tag">{{ item.source }}</span>{% endif %}
+          </summary>
+          <div class="resource-body">
+            {% if item.description %}<span class="resource-desc">{{ item.description }}</span>{% endif %}
+            <a class="resource-link" href="{{ item.url }}" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </details>
       </li>
       {% else %}
       <li class="resource-empty">Coming soon.</li>
@@ -142,12 +147,17 @@ layout: default
   <div class="split-content">
     <ul class="resource-list">
       {% for item in site.data.datasets %}
-      <li class="resource">
-        <span class="resource-head">
-          <a class="resource-name" href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>
-          {% if item.source %}<span class="resource-tag">{{ item.source }}</span>{% endif %}
-        </span>
-        {% if item.description %}<span class="resource-desc">{{ item.description }}</span>{% endif %}
+      <li>
+        <details class="resource">
+          <summary class="resource-head">
+            <span class="resource-name">{{ item.name }}</span>
+            {% if item.source %}<span class="resource-tag">{{ item.source }}</span>{% endif %}
+          </summary>
+          <div class="resource-body">
+            {% if item.description %}<span class="resource-desc">{{ item.description }}</span>{% endif %}
+            <a class="resource-link" href="{{ item.url }}" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </details>
       </li>
       {% else %}
       <li class="resource-empty">Coming soon.</li>

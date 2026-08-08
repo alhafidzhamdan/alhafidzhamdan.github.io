@@ -17,6 +17,11 @@
   source: "GitHub"
   description: "Pipeline to analyse the ChIP-seq data published in Koeber et al., Nature (2026)."
 
+- name: "mitotic_regulation_of_SOX2"
+  url: "https://github.com/alhafidzhamdan/mitotic_regulation_of_SOX2"
+  source: "GitHub"
+  description: "ChIP-seq analysis scripts investigating the mitotic regulation of SOX2 in neural stem cells."
+
 - name: "ecDNA simulation"
   url: "/simulations/"
   source: "Interactive"
