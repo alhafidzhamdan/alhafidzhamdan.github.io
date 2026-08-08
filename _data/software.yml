@@ -12,12 +12,12 @@
   source: "R package"
   description: "Calls and visualises episomal extrachromosomal DNA (ecDNA) amplicons from whole-genome sequencing."
 
-- name: "sse_gene_therapy"
+- name: "SSE gene therapy pipeline"
   url: "https://github.com/alhafidzhamdan/sse_gene_therapy"
   source: "GitHub"
   description: "Pipeline to analyse the ChIP-seq data published in Koeber et al., Nature (2026)."
 
-- name: "mitotic_regulation_of_SOX2"
+- name: "Mitotic regulation of SOX2"
   url: "https://github.com/alhafidzhamdan/mitotic_regulation_of_SOX2"
   source: "GitHub"
   description: "ChIP-seq analysis scripts investigating the mitotic regulation of SOX2 in neural stem cells."
