@@ -168,8 +168,9 @@
   var N=SITES.length;
   // niche shapes + positions derived from the seed, so "New run" redraws the tissue
   function makeNiches(seed){var r=mulberry32((seed>>>0)^0x9e3779b9);function ph(){return r()*6.2832;}
-    return {A:{x:W*(0.26+0.10*r()),y:H*(0.37+0.18*r()),r0:W*(0.13+0.035*r()),ph:[ph(),ph(),ph()]},
-            B:{x:W*(0.60+0.13*r()),y:H*(0.42+0.20*r()),r0:W*(0.12+0.035*r()),ph:[ph(),ph(),ph()]}};}
+    // A kept in the left third, B in the right third -> always a clear background band between
+    return {A:{x:W*(0.19+0.09*r()),y:H*(0.34+0.22*r()),r0:W*(0.12+0.03*r()),ph:[ph(),ph(),ph()]},
+            B:{x:W*(0.72+0.09*r()),y:H*(0.44+0.22*r()),r0:W*(0.115+0.03*r()),ph:[ph(),ph(),ph()]}};}
   function blobPath(nn){var d='';for(var a=0;a<=360;a+=8){var th=a*Math.PI/180,R=nicheR(nn,th);
     d+=(a?' L':'M')+(nn.x+R*Math.cos(th)).toFixed(1)+','+(nn.y+R*Math.sin(th)).toFixed(1);}return d+' Z';}
 
