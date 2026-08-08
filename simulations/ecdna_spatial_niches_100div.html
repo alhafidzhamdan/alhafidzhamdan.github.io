@@ -172,21 +172,25 @@
   var state={seed:5,N:225,sA:0.09,div:100,sim:null};
   function recompute(){state.sim=simulate(state.seed,state.N,state.sA);renderAll();}
 
-  // ---- spatial map ---------------------------------------------------------
-  function niche(svg,pop,x0,y0,side,label,accent,c){
-    var n=pop.length,cols=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/cols),cell=side/cols;
-    svg.appendChild((function(){var t=el('text',{x:x0,y:y0-8,'font-size':11,fill:accent,'font-weight':'bold'});t.textContent=label;return t;})());
-    for(var i=0;i<n;i++){var col=i%cols,row=(i/cols)|0;
-      svg.appendChild(el('rect',{x:x0+col*cell,y:y0+row*cell,width:Math.max(cell-0.8,1),height:Math.max(cell-0.8,1),fill:cellColor(pop[i]),rx:0.6}));}
-    svg.appendChild(el('rect',{x:x0-1,y:y0-1,width:cols*cell+1,height:rows*cell+1,fill:'none',stroke:accent,'stroke-width':1.2,'stroke-opacity':0.5,rx:3}));
-  }
+  // ---- spatial map: ONE continuous tissue field split into two niche domains
   function renderMap(){
     var svg=document.getElementById('map');svg.textContent='';var c=C(),sim=state.sim;
-    var W=480,H=300,side=190,gap=40,topY=34;
-    var x0A=(W-2*side-gap)/2, x0B=x0A+side+gap;
-    niche(svg,sim.histA[state.div],x0A,topY,side,'NICHE A · selected',c.amp,c);
-    niche(svg,sim.histB[state.div],x0B,topY,side,'NICHE B · neutral',c.nb,c);
-    document.getElementById('map-sub').textContent='cells sorted by copy number · division '+state.div;
+    var popA=sim.histA[state.div], popB=sim.histB[state.div];
+    var n=popA.length, cols=Math.ceil(Math.sqrt(n)), rows=Math.ceil(n/cols);
+    var W=520, pad=16, topY=44;
+    var cell=(W-2*pad)/(cols*2), gridH=rows*cell, H=topY+gridH+pad;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    var x0=pad, y0=topY;
+    function place(pop,off){for(var i=0;i<pop.length;i++){var col=i%cols,row=(i/cols)|0;
+      svg.appendChild(el('rect',{x:x0+(off+col)*cell,y:y0+row*cell,width:Math.max(cell-0.6,1),height:Math.max(cell-0.6,1),fill:cellColor(pop[i]),rx:0.5}));}}
+    place(popA,0); place(popB,cols);
+    // one outer frame + a dashed niche boundary down the middle
+    svg.appendChild(el('rect',{x:x0-1,y:y0-1,width:2*cols*cell+2,height:gridH+2,fill:'none',stroke:c.line,'stroke-width':1,rx:3}));
+    var dx=x0+cols*cell;
+    svg.appendChild(el('line',{x1:dx,y1:y0-8,x2:dx,y2:y0+gridH+3,stroke:c.ink,'stroke-width':1.5,'stroke-dasharray':'4 3','stroke-opacity':0.55}));
+    svg.appendChild((function(){var t=el('text',{x:x0+cols*cell/2,y:y0-12,'font-size':11,fill:c.amp,'font-weight':'bold','text-anchor':'middle'});t.textContent='NICHE A · selected';return t;})());
+    svg.appendChild((function(){var t=el('text',{x:x0+cols*cell*1.5,y:y0-12,'font-size':11,fill:c.nb,'font-weight':'bold','text-anchor':'middle'});t.textContent='NICHE B · neutral';return t;})());
+    document.getElementById('map-sub').textContent='one tissue field · niche boundary dashed · division '+state.div;
   }
 
   // ---- divergence trajectory ----------------------------------------------
