@@ -50,11 +50,11 @@
   <header class="head">
     <p class="eyebrow">Interactive · EpiTracer</p>
     <h1>ecDNA simulations</h1>
-    <p class="lede">Three browser-based models of how an <b>extrachromosomal DNA (ecDNA)</b> amplicon is born and evolves —
+    <p class="lede">Four browser-based models of how an <b>extrachromosomal DNA (ecDNA)</b> amplicon is born and evolves —
       acentric circles carrying oncogenes, followed over <b>100 cell divisions</b>. Pick a scenario below: <b>neutral drift</b>
-      (no selection), <b>positive selection</b> with rounds of internal rearrangement, and a <b>micronucleus / chromothripsis</b>
-      origin that fuses two chromosomes. Each tab opens that scenario's own write-up and interactive simulation. Built to accompany
-      <a href="https://github.com/alhafidzhamdan/EpiTracer">EpiTracer</a>.</p>
+      (no selection), <b>positive selection</b> with rounds of internal rearrangement, a <b>micronucleus / chromothripsis</b>
+      origin that fuses two chromosomes, and <b>spatial selection</b> across two tumour niches. Each tab opens that scenario's own
+      write-up and interactive simulation. Built to accompany <a href="https://github.com/alhafidzhamdan/EpiTracer">EpiTracer</a>.</p>
   </header>
 
   <div class="tabwrap">
@@ -62,6 +62,7 @@
       <button class="tab active" role="tab" data-i="0" aria-selected="true"><span class="pip" style="background:#d92a05"></span>Neutral drift</button>
       <button class="tab" role="tab" data-i="1" aria-selected="false"><span class="pip" style="background:#7048a6"></span>Under selection</button>
       <button class="tab" role="tab" data-i="2" aria-selected="false"><span class="pip" style="background:#0e8a8f"></span>Micronucleus · TRA</button>
+      <button class="tab" role="tab" data-i="3" aria-selected="false"><span class="pip" style="background:#c0851e"></span>Spatial · niches</button>
       <span class="tabsp"></span>
       <a class="home" href="https://alhafidzhamdan.github.io/">Home ↗</a>
     </nav>
@@ -71,6 +72,7 @@
     <iframe class="active" data-i="0" title="Neutral drift simulation" data-src="ecdna_birth_neutral_100div.html" scrolling="no"></iframe>
     <iframe data-i="1" title="Selection simulation" data-src="ecdna_selection_structural_100div.html" scrolling="no"></iframe>
     <iframe data-i="2" title="Micronucleus / TRA simulation" data-src="ecdna_micronuclei_TRA_100div.html" scrolling="no"></iframe>
+    <iframe data-i="3" title="Spatial niches simulation" data-src="ecdna_spatial_niches_100div.html" scrolling="no"></iframe>
   </div>
 
 <script>
@@ -106,7 +108,7 @@
       var on=j===i; f.classList.toggle('active',on);
       if(on){ if(!f.src) f.src=f.dataset.src; requestAnimationFrame(function(){fit(f);}); }
     });
-    try{history.replaceState(null,'','#'+['neutral','selection','micronuclei'][i]);}catch(e){}
+    try{history.replaceState(null,'','#'+['neutral','selection','micronuclei','spatial'][i]);}catch(e){}
   }
   tabs.forEach(function(t){t.addEventListener('click',function(){
     activate(+t.dataset.i);
@@ -115,7 +117,7 @@
   });});
   window.addEventListener('resize',function(){var a=document.querySelector('.panes iframe.active');if(a)fit(a);});
 
-  var h={neutral:0,selection:1,micronuclei:2}[(location.hash||'').replace('#','')];
+  var h={neutral:0,selection:1,micronuclei:2,spatial:3}[(location.hash||'').replace('#','')];
   activate(h==null?0:h);
 </script>
 </body>
