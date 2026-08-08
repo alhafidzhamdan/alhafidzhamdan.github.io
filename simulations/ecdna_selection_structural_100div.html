@@ -14,7 +14,7 @@
     --ink:#16202e; --muted:#5b6676; --faint:#8a95a4;
     --line:#d6dde6; --grid:#e7ecf2;
     --amp:#d92a05; --ecdna:#c1447e; --loss:#0077b6; --diploid:#3a9387;
-    --v1:#3a9387; --v2:#e8734f; --v3:#7048a6;
+    --v1:#3a9387; --v2:#e8734f; --v3:#7048a6; --v4:#2b7cc4; --v5:#b8478f; --v6:#4a9b5e;
     --del:#7fb3e8; --dup:#c1447e; --h2h:#8b8d97; --t2t:#384351;
     --ideo:#e6eaef; --ideoband:#c3cbd6; --founder:#e0891c; --scar:#9c6644;
     --accent:#7048a6; --accent-soft:#efeaf7;
@@ -27,7 +27,7 @@
       --bg:#0c111a; --panel:#131b26; --panel-2:#0f1620; --ink:#e8edf4; --muted:#95a1b2;
       --faint:#6b7788; --line:#24303d; --grid:#1c2733;
       --amp:#ff5c3a; --ecdna:#e46ba2; --loss:#35a7e6; --diploid:#4cb6a7;
-      --v1:#4cb6a7; --v2:#f0824f; --v3:#9d7ad6; --del:#6fa6dd; --dup:#e46ba2; --h2h:#9a9ca6; --t2t:#6b7686;
+      --v1:#4cb6a7; --v2:#f0824f; --v3:#9d7ad6; --v4:#5aa8e0; --v5:#d873b0; --v6:#6bc47f; --del:#6fa6dd; --dup:#e46ba2; --h2h:#9a9ca6; --t2t:#6b7686;
       --ideo:#26313d; --ideoband:#3a4756; --founder:#f0ad4e; --scar:#c08a5e;
       --accent:#9d7ad6; --accent-soft:#1e1830;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
@@ -36,14 +36,14 @@
   :root[data-theme="light"]{
     --bg:#eaeef3; --panel:#ffffff; --panel-2:#f5f7fa; --ink:#16202e; --muted:#5b6676; --faint:#8a95a4;
     --line:#d6dde6; --grid:#e7ecf2; --amp:#d92a05; --ecdna:#c1447e; --loss:#0077b6; --diploid:#3a9387;
-    --v1:#3a9387; --v2:#e8734f; --v3:#7048a6; --del:#7fb3e8; --dup:#c1447e; --h2h:#8b8d97; --t2t:#384351;
+    --v1:#3a9387; --v2:#e8734f; --v3:#7048a6; --v4:#2b7cc4; --v5:#b8478f; --v6:#4a9b5e; --del:#7fb3e8; --dup:#c1447e; --h2h:#8b8d97; --t2t:#384351;
     --ideo:#e6eaef; --ideoband:#c3cbd6; --founder:#e0891c; --scar:#9c6644;
     --accent:#7048a6; --accent-soft:#efeaf7; --shadow:0 1px 2px rgba(20,30,45,.06),0 8px 24px rgba(20,30,45,.06);
   }
   :root[data-theme="dark"]{
     --bg:#0c111a; --panel:#131b26; --panel-2:#0f1620; --ink:#e8edf4; --muted:#95a1b2; --faint:#6b7788;
     --line:#24303d; --grid:#1c2733; --amp:#ff5c3a; --ecdna:#e46ba2; --loss:#35a7e6; --diploid:#4cb6a7;
-    --v1:#4cb6a7; --v2:#f0824f; --v3:#9d7ad6; --del:#6fa6dd; --dup:#e46ba2; --h2h:#9a9ca6; --t2t:#6b7686;
+    --v1:#4cb6a7; --v2:#f0824f; --v3:#9d7ad6; --v4:#5aa8e0; --v5:#d873b0; --v6:#6bc47f; --del:#6fa6dd; --dup:#e46ba2; --h2h:#9a9ca6; --t2t:#6b7686;
     --ideo:#26313d; --ideoband:#3a4756; --founder:#f0ad4e; --scar:#c08a5e;
     --accent:#9d7ad6; --accent-soft:#1e1830; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
   }
@@ -96,9 +96,12 @@
   .frame .cap b{color:var(--ink)}
   .frame .cn{font-family:var(--mono);font-size:11px;margin:4px 2px 0;color:var(--muted)}
   .frame .cn b{color:var(--ink)}
-  .frame.f0{border-color:var(--ecdna)}
-  .frame.f20{border-color:var(--v2)}
-  .frame.f50,.frame.f100{border-color:var(--v3)}
+  .frame.fv1{border-color:var(--ecdna)}
+  .frame.fv2{border-color:var(--v2)}
+  .frame.fv3{border-color:var(--v3)}
+  .frame.fv4{border-color:var(--v4)}
+  .frame.fv5{border-color:var(--v5)}
+  .frame.fv6{border-color:var(--v6)}
 
   .note{font-size:13px;color:var(--muted);max-width:78ch;margin:14px 2px 0;line-height:1.6}
   .note b{color:var(--ink);font-weight:600}
@@ -110,10 +113,11 @@
   <p class="eyebrow">Extrachromosomal DNA · selection + structural evolution</p>
   <h1>The circle <em>rewrites itself</em></h1>
   <p class="lede">Same founder episome — now under <b>positive selection</b> (fitness rises with oncogene dosage), run to
-    <b>division 100</b>. Twice the circle mis-repairs: an <b>intramolecular rearrangement is seeded at division 20 and
-    again at division 50</b>, spanning every SV class an episome can make — <b>deletion, duplication, and both inversion
-    junctions</b>. There is no translocation: a lone circle has nothing to translocate <em>to</em>. Selection then sweeps
-    each rearranged, higher-dosage variant through the population.</p>
+    <b>division 100</b>. The circle mis-repairs in <b>successive rounds</b> — DUP + DEL at division 20, an inversion at 50,
+    then further duplications/deletions/inversions — each spanning intramolecular SV classes only (a lone circle has
+    nothing to translocate <em>to</em>). Every round adds junctions and <b>re-segments the copy-number profile</b>, and
+    selection sweeps each rearranged, higher-dosage variant through the population. Use <b>SV rounds</b> to add more
+    rounds; each becomes its own genome-profile panel.</p>
 
   <div class="legend" aria-hidden="true">
     <span><i class="dot" style="background:var(--v1)"></i>v1 ancestral circle</span>
@@ -135,6 +139,7 @@
       <div class="ctl"><label for="npop">Population N</label><input id="npop" type="number" value="300" min="50" max="3000" step="50"></div>
       <div class="ctl"><label for="sel">Selection strength</label>
         <div class="row"><input id="sel" type="range" min="0" max="0.2" step="0.01" value="0.06"><span class="rngval" id="selv">0.06</span></div></div>
+      <div class="ctl"><label for="rounds">SV rounds</label><input id="rounds" type="number" value="3" min="2" max="5" step="1"></div>
       <button class="btn" id="run" type="button">New run ↻</button>
       <div class="readout">
         <div><span class="k">Mean CN · gen 100</span><span class="v" id="ro-mean">—</span></div>
@@ -191,14 +196,30 @@
   var GENS=100, CHECK=[0,2,20,50,100], KCAP=200;
   var WIN={s:54.4e6,e:55.9e6}, CIRC={a:54.6e6,b:55.6e6}, EGFR={a:55.0e6,b:55.2e6};
   var DUP={a:54.88e6,b:55.32e6}, DEL={a:54.62e6,b:54.74e6}, INV={a:55.42e6,b:55.56e6};
-  // Fitness weight per version: v2 duplicates EGFR (dosage x2); v3's inversion is
-  // modelled with a modest extra edge (e.g. regulatory rewiring) so a retained
-  // rearrangement can sweep -- deleterious ones would simply be lost.
-  var DOSE={1:1,2:2,3:2.6};
+  var DUP2={a:55.06e6,b:55.16e6}, DEL2={a:54.76e6,b:54.84e6}, INV2={a:55.34e6,b:55.42e6};
+  // Rounds of internal rearrangement the circle can acquire, in order. The "SV rounds"
+  // control chooses how many are active; each seeds at its division, adds junction(s) and
+  // a copy-number change (dup +1 / del ->0 / inv none), and raises fitness (dosage) so a
+  // retained rearrangement sweeps. Rounds 1-2 (DUP+DEL, then inversion) are the default.
+  var ROUNDS=[
+    {ver:2,div:20,dose:2.0,muts:[{op:'dup',reg:DUP},{op:'del',reg:DEL}],
+     jxns:[{t:'dup',x1:DUP.b,x2:DUP.a},{t:'del',x1:DEL.a,x2:DEL.b}]},
+    {ver:3,div:50,dose:2.6,muts:[{op:'inv',reg:INV}],
+     jxns:[{t:'h2h',x1:INV.a,x2:INV.b},{t:'t2t',x1:INV.a,x2:INV.b}]},
+    {ver:4,div:80,dose:3.2,muts:[{op:'dup',reg:DUP2}],
+     jxns:[{t:'dup',x1:DUP2.b,x2:DUP2.a}]},
+    {ver:5,div:90,dose:3.8,muts:[{op:'del',reg:DEL2}],
+     jxns:[{t:'del',x1:DEL2.a,x2:DEL2.b}]},
+    {ver:6,div:96,dose:4.4,muts:[{op:'inv',reg:INV2}],
+     jxns:[{t:'h2h',x1:INV2.a,x2:INV2.b},{t:'t2t',x1:INV2.a,x2:INV2.b}]}
+  ];
+  var MAXVER=6;
+  function dose(v){return v<=1?1:(ROUNDS[v-2]?ROUNDS[v-2].dose:1);}
   function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
   function C(){return{ink:cssv('--ink'),grid:cssv('--grid'),faint:cssv('--faint'),muted:cssv('--muted'),line:cssv('--line'),
     amp:cssv('--amp'),diploid:cssv('--diploid'),loss:cssv('--loss'),ecdna:cssv('--ecdna'),
-    v1:cssv('--v1'),v2:cssv('--v2'),v3:cssv('--v3'),del:cssv('--del'),dup:cssv('--dup'),h2h:cssv('--h2h'),t2t:cssv('--t2t'),
+    v1:cssv('--v1'),v2:cssv('--v2'),v3:cssv('--v3'),v4:cssv('--v4'),v5:cssv('--v5'),v6:cssv('--v6'),
+    del:cssv('--del'),dup:cssv('--dup'),h2h:cssv('--h2h'),t2t:cssv('--t2t'),
     ideo:cssv('--ideo'),ideoband:cssv('--ideoband'),founder:cssv('--founder'),scar:cssv('--scar')};}
 
   function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
@@ -206,29 +227,34 @@
   function bisect(arr,x){var lo=0,hi=arr.length-1;while(lo<hi){var m=(lo+hi)>>1;if(arr[m]<x)lo=m+1;else hi=m;}return lo;}
 
   // per-copy multiplicity of reference position p on a version-v circle
+  // per-copy multiplicity at p, cumulative over every round with ver <= v
   function multAt(v,p){
     if(p<CIRC.a||p>=CIRC.b) return 0;
-    if(v>=2 && p>=DEL.a && p<DEL.b) return 0;   // deletion
-    if(v>=2 && p>=DUP.a && p<DUP.b) return 2;   // tandem duplication
-    return 1;
+    var m=1;
+    for(var r=0;r<ROUNDS.length&&ROUNDS[r].ver<=v;r++){
+      var mu=ROUNDS[r].muts;
+      for(var q=0;q<mu.length;q++) if(p>=mu[q].reg.a&&p<mu[q].reg.b){
+        if(mu[q].op==='del') m=0; else if(mu[q].op==='dup'&&m>0) m+=1;
+      }
+    }
+    return m;
   }
   function junctions(v,scar){
-    var j=[{t:'founder',x1:CIRC.b,x2:CIRC.a}];       // founder SV: circularisation join (on the ecDNA)
+    var j=[{t:'founder',x1:CIRC.b,x2:CIRC.a}];       // founder SV: circularisation join
     if(scar) j.push({t:'scar',x1:CIRC.a,x2:CIRC.b});  // excision scar: chromosomal DEL joining the flanks
-    if(v>=2){ j.push({t:'dup',x1:DUP.b,x2:DUP.a}); j.push({t:'del',x1:DEL.a,x2:DEL.b}); }
-    if(v>=3){ j.push({t:'h2h',x1:INV.a,x2:INV.b}); j.push({t:'t2t',x1:INV.a,x2:INV.b}); }
+    for(var r=0;r<ROUNDS.length&&ROUNDS[r].ver<=v;r++) ROUNDS[r].jxns.forEach(function(x){j.push(x);});
     return j;
   }
 
-  function simulate(seed,N,founder,s){
+  function simulate(seed,N,founder,s,R){
     var rng=mulberry32(seed>>>0);
     var pop=[{k:founder,ver:1}];
     var traj=[];
     function record(){
-      var carry=0,sum=0,mx=0,vf=[0,0,0,0]; // [lost,v1,v2,v3]
+      var carry=0,sum=0,mx=0,vf=new Array(MAXVER+1).fill(0); // [lost,v1..v6]
       for(var i=0;i<pop.length;i++){var c=pop[i];if(c.k===0){vf[0]++;}else{carry++;sum+=c.k;vf[c.ver]++;if(c.k>mx)mx=c.k;}}
-      for(var q=0;q<4;q++)vf[q]/=pop.length;
-      var dom=1,dv=vf[1];for(var vv=2;vv<=3;vv++)if(vf[vv]>dv){dv=vf[vv];dom=vv;}
+      for(var q=0;q<=MAXVER;q++)vf[q]/=pop.length;
+      var dom=1,dv=vf[1];for(var vv=2;vv<=MAXVER;vv++)if(vf[vv]>dv){dv=vf[vv];dom=vv;}
       traj.push({carry:carry/pop.length,meanCar:carry?sum/carry:0,max:mx,vf:vf,dom:carry?dom:0});
     }
     record();
@@ -237,13 +263,12 @@
       for(var i=0;i<pop.length;i++){var two=Math.min(pop[i].k*2,KCAP);var a=binom(two,rng);d.push({k:a,ver:pop[i].ver});d.push({k:two-a,ver:pop[i].ver});}
       // fitness-weighted resample to N (with replacement)
       var cum=[],tot=0;
-      for(i=0;i<d.length;i++){tot+=1+s*d[i].k*DOSE[d[i].ver];cum.push(tot);}
+      for(i=0;i<d.length;i++){tot+=1+s*d[i].k*dose(d[i].ver);cum.push(tot);}
       var next=[];
       for(i=0;i<N;i++){var idx=bisect(cum,rng()*tot);next.push({k:d[idx].k,ver:d[idx].ver});}
       pop=next;
-      // seed a rearrangement in one carrier
-      if(g===20) seedVer(pop,1,2,rng);
-      if(g===50) seedVer(pop,2,3,rng);
+      // seed each active round's rearrangement in one carrier at its division
+      for(var r=0;r<R&&r<ROUNDS.length;r++) if(g===ROUNDS[r].div) seedVer(pop,ROUNDS[r].ver-1,ROUNDS[r].ver,rng);
       record();
     }
     return traj;
@@ -254,8 +279,8 @@
     if(cand.length)pop[cand[(rng()*cand.length)|0]].ver=to;
   }
 
-  var state={seed:12,N:300,founder:1,s:0.06,traj:null};
-  function recompute(){state.traj=simulate(state.seed,state.N,state.founder,state.s);renderAll();}
+  var state={seed:12,N:300,founder:1,s:0.06,rounds:3,traj:null};
+  function recompute(){state.traj=simulate(state.seed,state.N,state.founder,state.s,state.rounds);renderAll();}
 
   var NS="http://www.w3.org/2000/svg";
   function el(t,a){var e=document.createElementNS(NS,t);if(a)for(var k in a)e.setAttribute(k,a[k]);return e;}
@@ -283,7 +308,7 @@
     var dmean='';for(g=0;g<tr.length;g++)dmean+=(g?' L':'M')+x(g)+','+yM(tr[g].meanCar);
     svg.appendChild(el('path',{d:dmean,fill:'none',stroke:c.amp,'stroke-width':2.4}));
     [0,25,50,75,100].forEach(function(g){var t=el('text',{x:x(g),y:H-9,'font-size':9,fill:c.faint,'text-anchor':'middle'});t.textContent=g;svg.appendChild(t);});
-    [20,50].forEach(function(g){svg.appendChild(el('line',{x1:x(g),y1:padT,x2:x(g),y2:H-padB,stroke:c.ink,'stroke-width':0.7,'stroke-dasharray':'2 3','stroke-opacity':0.4}));
+    ROUNDS.slice(0,state.rounds).forEach(function(rd){var g=rd.div;svg.appendChild(el('line',{x1:x(g),y1:padT,x2:x(g),y2:H-padB,stroke:c.ink,'stroke-width':0.7,'stroke-dasharray':'2 3','stroke-opacity':0.4}));
       var t=el('text',{x:x(g),y:padT-4,'font-size':8,fill:c.muted,'text-anchor':'middle'});t.textContent='div '+g;svg.appendChild(t);});
     var la=el('text',{x:padL,y:11,'font-size':9,fill:c.amp});la.textContent='mean copies (bold) · max (faint)';svg.appendChild(la);
     var lb=el('text',{x:W-padR,y:11,'font-size':9,fill:c.diploid,'text-anchor':'end'});lb.textContent='% carrying';svg.appendChild(lb);
@@ -293,13 +318,13 @@
   function renderSweep(){
     var svg=document.getElementById('sweep');svg.textContent='';var c=C(),tr=state.traj;
     var W=470,H=250,padL=38,padR=14,padT=16,padB=28;
-    var cols=[c.loss,c.v1,c.v2,c.v3];
+    var cols=[c.loss,c.v1,c.v2,c.v3,c.v4,c.v5,c.v6];
     function x(g){return padL+g/GENS*(W-padL-padR);}
     function y(f){return H-padB-f*(H-padT-padB);}
     [0,.25,.5,.75,1].forEach(function(f){svg.appendChild(el('line',{x1:padL,y1:y(f),x2:W-padR,y2:y(f),stroke:c.grid,'stroke-width':1}));
       var t=el('text',{x:padL-5,y:y(f)+3,'font-size':9,fill:c.faint,'text-anchor':'end'});t.textContent=(f*100)+'%';svg.appendChild(t);});
     var cum=new Array(tr.length).fill(0);
-    for(var cl=0;cl<4;cl++){
+    for(var cl=0;cl<=MAXVER;cl++){
       var d='M'+x(0)+','+y(cum[0]);
       for(var g=0;g<tr.length;g++)d+=' L'+x(g)+','+y(cum[g]+tr[g].vf[cl]);
       for(g=tr.length-1;g>=0;g--)d+=' L'+x(g)+','+y(cum[g]);
@@ -308,7 +333,7 @@
       for(g=0;g<tr.length;g++)cum[g]+=tr[g].vf[cl];
     }
     [0,25,50,75,100].forEach(function(g){var t=el('text',{x:x(g),y:H-9,'font-size':9,fill:c.faint,'text-anchor':'middle'});t.textContent=g;svg.appendChild(t);});
-    [20,50].forEach(function(g){svg.appendChild(el('line',{x1:x(g),y1:padT,x2:x(g),y2:H-padB,stroke:c.ink,'stroke-width':0.7,'stroke-dasharray':'2 3','stroke-opacity':0.5}));
+    ROUNDS.slice(0,state.rounds).forEach(function(rd){var g=rd.div;svg.appendChild(el('line',{x1:x(g),y1:padT,x2:x(g),y2:H-padB,stroke:c.ink,'stroke-width':0.7,'stroke-dasharray':'2 3','stroke-opacity':0.5}));
       var t=el('text',{x:x(g),y:padT-4,'font-size':8,fill:c.muted,'text-anchor':'middle'});t.textContent='div '+g;svg.appendChild(t);});
   }
 
@@ -398,32 +423,34 @@
 
   function renderStrip(){
     var host=document.getElementById('strip');host.textContent='';var tr=state.traj;
-    var verAt=[1,1,2,3,3];                       // structural version at [0,2,20,50,100]
-    var scarAt=[false,true,true,true,true];      // excision scar introduced at division 2
-    var ks=CHECK.map(function(g,i){return g===0?1:Math.max(1,Math.round(tr[g].meanCar));});
-    // Founder-SV read support = amplicon copy number, forced monotonic (running
-    // max) so it climbs every division to its maximum at division 100 (the shared
-    // rsMax used to scale the read-support axis across all four panels).
+    var R=state.rounds;
+    // Checkpoints: birth, div2 (scar), one panel per active round's division, + div100.
+    var CHECK=[0,2].concat(ROUNDS.slice(0,R).map(function(rd){return rd.div;})).concat([GENS]);
+    CHECK=CHECK.filter(function(v,i,a){return a.indexOf(v)===i;}).sort(function(a,b){return a-b;});
+    function verAtG(g){var v=1;for(var r=0;r<R&&r<ROUNDS.length;r++)if(ROUNDS[r].div<=g)v=ROUNDS[r].ver;return v;}
+    var ks=CHECK.map(function(g){return g===0?1:Math.max(1,Math.round(tr[g].meanCar));});
+    // Founder-SV read support = amplicon copy number, forced monotonic (running max)
+    // so it climbs every division to its maximum at the last checkpoint (rsMax, shared).
     var founderRS=[],run=0;ks.forEach(function(k){run=Math.max(run,k);founderRS.push(run);});
     var rsMax=founderRS[founderRS.length-1];
-    var titles=['GEN 0 · BIRTH','DIVISION 2','DIVISION 20','DIVISION 50','DIVISION 100'];
-    var vlab=['v1','v1 + scar','v2','v3','v3'];
     CHECK.forEach(function(g,i){
-      var f=document.createElement('div');f.className='frame f'+g;
-      var cap=document.createElement('p');cap.className='cap';cap.innerHTML='<span>'+titles[i]+'</span><b>'+vlab[i]+'</b>';f.appendChild(cap);
-      f.appendChild(profileSVG(verAt[i],ks[i],founderRS[i],rsMax,scarAt[i]));
-      var cn=document.createElement('p');cn.className='cn';
-      var p=tr[g];
+      var ver=verAtG(g), scar=g>=2;
+      var title=g===0?'GEN 0 · BIRTH':'DIVISION '+g;
+      var f=document.createElement('div');f.className='frame fv'+ver;
+      var cap=document.createElement('p');cap.className='cap';
+      cap.innerHTML='<span>'+title+'</span><b>v'+ver+(g===2?' + scar':'')+'</b>';f.appendChild(cap);
+      f.appendChild(profileSVG(ver,ks[i],founderRS[i],rsMax,scar));
+      var cn=document.createElement('p');cn.className='cn';var p=tr[g];
       cn.innerHTML=(g===0?'<b>k=1</b> · founder circle':'<b>k≈'+ks[i]+'</b> · '+Math.round(p.carry*100)+'% carry')
         +' · <span style="color:var(--founder)">founder RS '+founderRS[i]+'</span>';
       f.appendChild(cn);
       host.appendChild(f);
     });
-    document.getElementById('strip-sub').textContent='chr7 · 54.4–55.9 Mb · representative carrier · CN + intramolecular SVs';
+    document.getElementById('strip-sub').textContent='chr7 · 54.4–55.9 Mb · representative carrier · '+R+' SV round'+(R>1?'s':'');
   }
 
   function renderReadout(){
-    var last=state.traj[GENS];var vn=['lost','v1','v2','v3'][last.dom];
+    var last=state.traj[GENS];var vn=last.dom?('v'+last.dom):'lost';
     document.getElementById('ro-mean').textContent=last.meanCar?last.meanCar.toFixed(1):'0';
     document.getElementById('ro-ver').textContent=vn;
     document.getElementById('ro-max').textContent=last.max;
@@ -437,6 +464,7 @@
   document.getElementById('seed').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.seed=isNaN(v)?0:v;recompute();});
   document.getElementById('npop').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.N=Math.max(50,Math.min(3000,isNaN(v)?300:v));e.target.value=state.N;recompute();});
   document.getElementById('sel').addEventListener('input',function(e){state.s=parseFloat(e.target.value);document.getElementById('selv').textContent=state.s.toFixed(2);recompute();});
+  document.getElementById('rounds').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.rounds=Math.max(2,Math.min(5,isNaN(v)?2:v));e.target.value=state.rounds;recompute();});
 
   // Re-render on theme change: SVG fills are baked from CSS vars at draw time, so
   // redraw when the OS scheme changes or the viewer toggles data-theme.
