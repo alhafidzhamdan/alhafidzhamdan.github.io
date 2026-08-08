@@ -12,6 +12,11 @@
   source: "R package"
   description: "Calls and visualises episomal extrachromosomal DNA (ecDNA) amplicons from whole-genome sequencing."
 
+- name: "ecDNA simulation"
+  url: "/simulations/"
+  source: "Interactive"
+  description: "Browser-based simulations of ecDNA birth and evolution over 100 cell divisions — neutral drift, positive selection, a micronucleus/chromothripsis origin, and spatial tumour niches."
+
 - name: "SSE gene therapy pipeline"
   url: "https://github.com/alhafidzhamdan/sse_gene_therapy"
   source: "GitHub"
@@ -21,8 +26,3 @@
   url: "https://github.com/alhafidzhamdan/mitotic_regulation_of_SOX2"
   source: "GitHub"
   description: "ChIP-seq analysis scripts investigating the mitotic regulation of SOX2 in neural stem cells."
-
-- name: "ecDNA simulation"
-  url: "/simulations/"
-  source: "Interactive"
-  description: "Browser-based simulations of ecDNA birth and evolution over 100 cell divisions — neutral drift, positive selection, a micronucleus/chromothripsis origin, and spatial tumour niches."
