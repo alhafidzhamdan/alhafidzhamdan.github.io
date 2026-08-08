@@ -25,4 +25,4 @@
 - name: "Mitotic regulation of SOX2"
   url: "https://github.com/alhafidzhamdan/mitotic_regulation_of_SOX2"
   source: "GitHub"
-  description: "ChIP-seq analysis scripts investigating the mitotic regulation of SOX2 in neural stem cells. Published in Genes & Development."
+  description: "ChIP-seq analysis scripts investigating the mitotic regulation of SOX2 in neural stem cells. Published in Williams et al., Genes & Development (2025)."
