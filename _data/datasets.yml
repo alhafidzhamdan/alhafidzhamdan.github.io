@@ -6,3 +6,8 @@
 #   url: "https://zenodo.org/records/0000000"
 #   source: "Zenodo"
 #   description: "One-line description of the dataset."
+
+- name: "sse_gene_therapy — Koeber et al., Nature 2026"
+  url: "https://zenodo.org/records/18676096"
+  source: "Zenodo"
+  description: "Archived code and resources release for the ChIP-seq analysis pipeline supporting Koeber et al., Nature (2026)."
