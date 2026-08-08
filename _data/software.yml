@@ -7,6 +7,11 @@
 #   source: "GitHub"
 #   description: "One-line description of what the tool does."
 
+- name: "EpiTracer"
+  url: "https://github.com/alhafidzhamdan/EpiTracer"
+  source: "R package"
+  description: "Calls and visualises episomal extrachromosomal DNA (ecDNA) amplicons from whole-genome sequencing."
+
 - name: "ecDNA simulation"
   url: "/simulations/"
   source: "Interactive"
