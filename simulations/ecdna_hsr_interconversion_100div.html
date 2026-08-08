@@ -99,6 +99,19 @@
   .frame .cn b{color:var(--ink)}
   .frame.birth{border-color:var(--ecdna);box-shadow:0 0 0 1px var(--ecdna) inset}
   .frame .meta{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin:3px 2px 0}
+  .strip .frame{cursor:zoom-in;transition:border-color .12s ease,transform .08s ease}
+  .strip .frame:hover{border-color:var(--accent)}
+  .strip .frame:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .zoom{position:relative;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+    background:var(--panel-2);border:1px solid var(--accent);border-radius:12px;padding:16px;margin-bottom:16px}
+  .zoom[hidden]{display:none}
+  .zoom .zsvg{flex:1 1 420px;min-width:260px;max-width:560px}
+  .zoom .zinfo{flex:1 1 190px;font-family:var(--mono);font-size:14px;color:var(--ink);line-height:1.75}
+  .zoom .zinfo b{font-size:16px}
+  .zoom .zinfo .zt{font-size:12px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-weight:600}
+  .zoom .zclose{position:absolute;top:8px;right:11px;border:none;background:none;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;font-family:var(--mono)}
+  .zoom .zclose:hover{color:var(--ink)}
 
   .note{font-size:13px;color:var(--muted);max-width:76ch;margin:14px 2px 0;line-height:1.6}
   .note b{color:var(--ink);font-weight:600}
@@ -197,8 +210,9 @@
   <div class="panel">
     <div class="panel-head">
       <h2>Genome profile at checkpoints</h2>
-      <span class="sub" id="strip-sub">chr7 · 40–70 Mb · population-mean cell · amplification decomposed HSR + ecDNA</span>
+      <span class="sub" id="strip-sub">chr7 · 40–70 Mb · population-mean cell · click any frame to enlarge</span>
     </div>
+    <div class="zoom" id="zoom" hidden></div>
     <div class="strip" id="strip"></div>
     <p class="note"><b>Reading it:</b> at the EGFR locus the amplification is stacked into its two sources — a solid
       <b style="color:var(--hsr)">HSR</b> block sitting on the chromosome (the "staining region") plus the
@@ -399,13 +413,34 @@
     return svg;
   }
 
+  function showZoom(d){
+    var z=document.getElementById('zoom');z.textContent='';
+    var close=document.createElement('button');close.className='zclose';close.type='button';
+    close.setAttribute('aria-label','close enlarged profile');close.textContent='×';
+    close.addEventListener('click',closeZoom);z.appendChild(close);
+    var sw=document.createElement('div');sw.className='zsvg';sw.appendChild(profileSVG(d.e,d.h,d.yMax));z.appendChild(sw);
+    var info=document.createElement('div');info.className='zinfo';
+    var title=d.g===0?'Gen 0 · founder (pure ecDNA)':'Division '+d.g;
+    info.innerHTML='<div class="zt">'+title+'</div>'+
+      'locus CN <b>'+(2+d.h+d.e)+'</b><br>HSR array <b>'+d.h+'</b><br>ecDNA circles <b>'+d.e+'</b>'+
+      (d.g===0?'':'<br><span style="color:var(--muted)">'+Math.round(d.share*100)+'% of dosage in HSR</span>');
+    z.appendChild(info);
+    z.hidden=false;
+    try{z.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}
+  }
+  function closeZoom(){var z=document.getElementById('zoom');z.hidden=true;z.textContent='';}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+
   function renderStrip(){
+    closeZoom();
     var host=document.getElementById('strip');host.textContent='';
     var tr=state.traj;
     CHECK.forEach(function(g){
       var p=g<tr.length?tr[g]:tr[tr.length-1];var e=Math.round(p.meanE),h=Math.round(p.meanH);
       var yMax=niceMax(2+h+e); // per-frame scale so every checkpoint is legible
       var f=document.createElement('div');f.className='frame'+(g===0?' birth':'');
+      f.setAttribute('role','button');f.tabIndex=0;
+      f.setAttribute('aria-label','Enlarge '+(g===0?'founder':'division '+g)+' profile');
       var cap=document.createElement('p');cap.className='cap';
       cap.textContent=g===0?'GEN 0 · ecDNA':'DIVISION '+g;f.appendChild(cap);
       f.appendChild(profileSVG(e,h,yMax));
@@ -413,6 +448,9 @@
       cn.innerHTML='locus CN <b>'+(2+h+e)+'</b> · HSR '+h+' · ecDNA '+e;f.appendChild(cn);
       var mt=document.createElement('p');mt.className='meta';
       mt.textContent=g===0?'founder cell':(Math.round(p.hsrShare*100)+'% of dosage in HSR');f.appendChild(mt);
+      var data={g:g,e:e,h:h,yMax:yMax,share:p.hsrShare};
+      f.addEventListener('click',function(){showZoom(data);});
+      f.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();showZoom(data);}});
       host.appendChild(f);
     });
   }
