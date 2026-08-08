@@ -7,71 +7,113 @@
 <title>ecDNA simulations</title>
 <style>
   :root{
-    --bg:#eef1f5; --bar:#ffffff; --ink:#16202e; --muted:#5b6676; --faint:#8a95a4;
+    --bg:#eef1f5; --bar:#ffffffee; --ink:#16202e; --muted:#5b6676; --faint:#8a95a4;
     --line:#d6dde6; --accent:#3b6ea5; --accent-soft:#e7eef6;
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme:dark){
-    :root{--bg:#0c111a; --bar:#111925; --ink:#e8edf4; --muted:#95a1b2; --faint:#6b7788;
+    :root{--bg:#0c111a; --bar:#0e1620ee; --ink:#e8edf4; --muted:#95a1b2; --faint:#6b7788;
       --line:#243040; --accent:#5a9bd4; --accent-soft:#152230;}
   }
-  html,body{margin:0;height:100%}
+  html,body{margin:0}
   *{box-sizing:border-box}
-  .shell{display:flex;flex-direction:column;height:100vh;font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
 
-  .topbar{display:flex;align-items:center;gap:8px;padding:0 14px;min-height:50px;border-bottom:1px solid var(--line);background:var(--bar);flex:none;flex-wrap:wrap}
-  .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:-.01em;margin-right:10px}
-  .brand .mark{font-size:16px}
-  .brand small{font-family:var(--mono);font-size:10px;font-weight:400;color:var(--faint);letter-spacing:.04em}
-  .tabs{display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto}
+  .head{max-width:1080px;margin:0 auto;padding:36px 24px 8px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 10px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.02;margin:0 0 12px;font-weight:800;letter-spacing:-.025em}
+  .lede{font-size:16.5px;color:var(--muted);max-width:74ch;margin:0 0 6px}
+  .lede b{color:var(--ink);font-weight:600}
+  .lede a{color:var(--accent);text-decoration:none}
+  .lede a:hover{text-decoration:underline}
+
+  /* sticky tab bar */
+  .tabwrap{position:sticky;top:0;z-index:10;background:var(--bar);backdrop-filter:saturate(1.6) blur(8px);border-bottom:1px solid var(--line);margin-top:16px}
+  .tabs{max-width:1080px;margin:0 auto;padding:0 18px;display:flex;gap:2px;overflow-x:auto}
   .tab{border:0;background:none;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--muted);
-       padding:9px 15px;cursor:pointer;border-radius:9px 9px 0 0;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:7px}
-  .tab .pip{width:9px;height:9px;border-radius:50%;flex:none;opacity:.85}
-  .tab:hover{color:var(--ink);background:var(--accent-soft)}
-  .tab.active{color:var(--ink);background:var(--bg);border-bottom-color:var(--accent)}
+       padding:12px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:7px}
+  .tab .pip{width:9px;height:9px;border-radius:50%;flex:none;opacity:.9}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--ink);border-bottom-color:var(--accent)}
   .tab:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-  .home{font-family:var(--mono);font-size:11px;color:var(--muted);text-decoration:none;padding:6px 8px;white-space:nowrap}
+  .tabsp{flex:1}
+  .home{font-family:var(--mono);font-size:11px;color:var(--muted);text-decoration:none;align-self:center;padding-left:10px;white-space:nowrap}
   .home:hover{color:var(--accent)}
 
-  .panes{position:relative;flex:1;min-height:0}
-  .panes iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:var(--bg)}
+  .panes{position:relative}
+  .panes iframe{display:none;width:100%;border:0;background:var(--bg);height:2000px}
   .panes iframe.active{display:block}
-  .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--faint)}
 </style>
 </head>
 <body>
-<div class="shell">
-  <header class="topbar">
-    <span class="brand"><span class="mark">🧬</span>ecDNA simulations <small>· EpiTracer</small></span>
+  <header class="head">
+    <p class="eyebrow">Interactive · EpiTracer</p>
+    <h1>ecDNA simulations</h1>
+    <p class="lede">Three browser-based models of how an <b>extrachromosomal DNA (ecDNA)</b> amplicon is born and evolves —
+      acentric circles carrying oncogenes, followed over <b>100 cell divisions</b>. Pick a scenario below: <b>neutral drift</b>
+      (no selection), <b>positive selection</b> with rounds of internal rearrangement, and a <b>micronucleus / chromothripsis</b>
+      origin that fuses two chromosomes. Each tab opens that scenario's own write-up and interactive simulation. Built to accompany
+      <a href="https://github.com/alhafidzhamdan/EpiTracer">EpiTracer</a>.</p>
+  </header>
+
+  <div class="tabwrap">
     <nav class="tabs" role="tablist" aria-label="ecDNA simulation scenarios">
       <button class="tab active" role="tab" data-i="0" aria-selected="true"><span class="pip" style="background:#d92a05"></span>Neutral drift</button>
       <button class="tab" role="tab" data-i="1" aria-selected="false"><span class="pip" style="background:#7048a6"></span>Under selection</button>
       <button class="tab" role="tab" data-i="2" aria-selected="false"><span class="pip" style="background:#0e8a8f"></span>Micronucleus · TRA</button>
+      <span class="tabsp"></span>
+      <a class="home" href="https://alhafidzhamdan.github.io/">Home ↗</a>
     </nav>
-    <a class="home" href="https://alhafidzhamdan.github.io/">Home ↗</a>
-  </header>
-  <div class="panes" id="panes">
-    <iframe class="active" data-i="0" title="Neutral drift simulation" data-src="ecdna_birth_neutral_100div.html" loading="eager"></iframe>
-    <iframe data-i="1" title="Selection simulation" data-src="ecdna_selection_structural_100div.html"></iframe>
-    <iframe data-i="2" title="Micronucleus / TRA simulation" data-src="ecdna_micronuclei_TRA_100div.html"></iframe>
-    <div class="loading" id="loading">loading…</div>
   </div>
-</div>
+
+  <div class="panes" id="panes">
+    <iframe class="active" data-i="0" title="Neutral drift simulation" data-src="ecdna_birth_neutral_100div.html" scrolling="no"></iframe>
+    <iframe data-i="1" title="Selection simulation" data-src="ecdna_selection_structural_100div.html" scrolling="no"></iframe>
+    <iframe data-i="2" title="Micronucleus / TRA simulation" data-src="ecdna_micronuclei_TRA_100div.html" scrolling="no"></iframe>
+  </div>
 
 <script>
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
   var frames=[].slice.call(document.querySelectorAll('.panes iframe'));
-  var loading=document.getElementById('loading');
-  function load(f){ if(!f.src) f.src=f.dataset.src; }
+
+  // Auto-size each iframe to its content so it flows as part of the page (same-origin
+  // on the live site). Falls back to a fixed height where cross-origin blocks access.
+  function fit(f){
+    try{
+      var d=f.contentWindow.document;
+      var h=Math.max(d.documentElement.scrollHeight, d.body?d.body.scrollHeight:0);
+      if(h>0) f.style.height=h+'px';
+    }catch(e){ f.style.height='2200px'; }
+  }
+  function wire(f){
+    f.addEventListener('load',function(){
+      fit(f);
+      // refit a few times as fonts/layout settle, and whenever the sim's content resizes
+      [80,300,800].forEach(function(t){setTimeout(function(){ if(f.classList.contains('active')) fit(f); },t);});
+      try{
+        var ro=new ResizeObserver(function(){ if(f.classList.contains('active')) fit(f); });
+        ro.observe(f.contentWindow.document.documentElement);
+      }catch(e){}
+    });
+  }
+  frames.forEach(wire);
+
   function activate(i){
     tabs.forEach(function(t,j){t.classList.toggle('active',j===i);t.setAttribute('aria-selected',j===i?'true':'false');});
-    frames.forEach(function(f,j){var on=j===i;f.classList.toggle('active',on);if(on)load(f);});
-    if(loading)loading.style.display='none';
+    frames.forEach(function(f,j){
+      var on=j===i; f.classList.toggle('active',on);
+      if(on){ if(!f.src) f.src=f.dataset.src; requestAnimationFrame(function(){fit(f);}); }
+    });
     try{history.replaceState(null,'','#'+['neutral','selection','micronuclei'][i]);}catch(e){}
   }
-  tabs.forEach(function(t){t.addEventListener('click',function(){activate(+t.dataset.i);});});
-  // open the tab named in the URL hash, else the first
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    activate(+t.dataset.i);
+    // bring the scenario heading into view under the sticky tabs
+    document.getElementById('panes').scrollIntoView({block:'start',behavior:'auto'});
+  });});
+  window.addEventListener('resize',function(){var a=document.querySelector('.panes iframe.active');if(a)fit(a);});
+
   var h={neutral:0,selection:1,micronuclei:2}[(location.hash||'').replace('#','')];
   activate(h==null?0:h);
 </script>
