@@ -1,12 +1,13 @@
 # ecDNA simulations
 
-Interactive simulations of episomal extrachromosomal DNA (ecDNA) birth and evolution,
-built to accompany [EpiTracer](https://github.com/alhafidzhamdan/EpiTracer). The amplicon
-is modelled on EGFR/chr7 to mirror EpiTracer's plotting.
+Interactive simulations of extrachromosomal DNA (ecDNA) birth and evolution, built to
+accompany [EpiTracer](https://github.com/alhafidzhamdan/EpiTracer). Amplicons are modelled
+on EGFR/chr7 (and MYCN/chr2) to mirror EpiTracer's plotting.
 
-Each file is **artifact-source HTML** — the page body only (styles + markup + script, no
-`<html>`/`<head>`/`<body>` wrapper), designed to be published via the Claude Artifact
-runtime. To view one standalone, wrap it in a minimal HTML document.
+`index.html` is a **tabbed hub** (browser-style tabs) that embeds the three scenario pages
+below via iframes: **Neutral drift**, **Under selection**, **Micronucleus · TRA**. Each
+scenario is also a **self-contained static HTML page** (inline CSS/JS, theme-aware) that
+works on its own. Live: https://alhafidzhamdan.github.io/simulations/
 
 ## Contents
 
