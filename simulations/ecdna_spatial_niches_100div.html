@@ -112,7 +112,7 @@
   <div class="panel">
     <div class="panel-head"><h2>Tumour section — copy number by location</h2><span class="sub" id="map-sub">bird's-eye · cells coloured by ecDNA copy number</span></div>
     <div class="svgbox"><svg id="map" viewBox="0 0 560 380" role="img" aria-label="bird's-eye map of ecDNA copy number across a tumour section with two niches"></svg></div>
-    <div class="scrub"><span class="lab" id="divlab">division 100</span><input id="div" type="range" min="0" max="100" value="100" aria-label="cell division"></div>
+    <div class="scrub"><span class="lab" id="divlab">division 15</span><input id="div" type="range" min="0" max="100" value="15" aria-label="cell division"></div>
   </div>
 
   <div class="panel">
@@ -183,7 +183,7 @@
     return {snaps:snaps, traj:traj};
   }
 
-  var state={seed:5,sA:0.09,div:100,sim:null};
+  var state={seed:5,sA:0.09,div:15,sim:null};
   function recompute(){state.sim=simulate(state.seed,state.sA);renderAll();}
 
   // ---- bird's-eye tumour section -------------------------------------------
@@ -227,10 +227,10 @@
     var yl=el('text',{x:11,y:(padT+y(0))/2,'font-size':9,fill:c.muted,'text-anchor':'middle',transform:'rotate(-90 11 '+((padT+y(0))/2)+')'});yl.textContent='mean copies';svg.appendChild(yl);
   }
 
-  function renderReadout(){var tr=state.sim.traj;
-    document.getElementById('ro-a').textContent=tr[1][GENS].toFixed(1);
-    document.getElementById('ro-b').textContent=tr[2][GENS].toFixed(1);
-    document.getElementById('ro-g').textContent=tr[0][GENS].toFixed(1);}
+  function renderReadout(){var tr=state.sim.traj,d=state.div;
+    document.getElementById('ro-a').textContent=tr[1][d].toFixed(1);
+    document.getElementById('ro-b').textContent=tr[2][d].toFixed(1);
+    document.getElementById('ro-g').textContent=tr[0][d].toFixed(1);}
 
   function renderAll(){renderMap();renderTraj();renderReadout();}
 
@@ -240,7 +240,7 @@
   document.getElementById('seed').addEventListener('change',function(e){var v=parseInt(e.target.value,10);state.seed=isNaN(v)?0:v;recompute();});
   document.getElementById('sel').addEventListener('input',function(e){document.getElementById('selv').textContent=parseFloat(e.target.value).toFixed(3);});
   document.getElementById('sel').addEventListener('change',function(e){state.sA=parseFloat(e.target.value);recompute();});
-  document.getElementById('div').addEventListener('input',function(e){state.div=parseInt(e.target.value,10);document.getElementById('divlab').textContent='division '+state.div;renderMap();renderTraj();});
+  document.getElementById('div').addEventListener('input',function(e){state.div=parseInt(e.target.value,10);document.getElementById('divlab').textContent='division '+state.div;renderMap();renderTraj();renderReadout();});
 
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
   if(mq.addEventListener)mq.addEventListener('change',renderAll);
