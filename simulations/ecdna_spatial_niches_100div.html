@@ -124,7 +124,8 @@
       ecDNA hotspot — <b>the same circle, different fate by location</b> — heterogeneity written by the microenvironment.</p>
   </div>
 
-  <p class="hint">Model · a lattice of cells inside the tissue; two circular niches sit in a neutral background. Each division every
+  <p class="hint">Model · a lattice of cells inside the tissue; two ragged-edged niches sit in a neutral background, their membership
+    graded (cells join a niche with probability = distance-based influence, so margins fade instead of a hard edge). Each division every
     site replicates (k→2k, cap 200) then Binomial(2k, ½) partition; the site is repopulated by a daughter drawn from its own
     region weighted by fitness w = 1 + s·k (s = the niche-A slider inside niche A, else 0). Positions are fixed, so the section
     evolves in place. Scrub to move through divisions.</p>
@@ -147,20 +148,31 @@
 
   // ---- tissue geometry: a lattice of sites inside an ellipse, two niche discs
   var W=560,H=380,CELL=8;
+  // irregular niche outline radius at angle th (a few harmonics -> organic lobes)
+  function nicheR(nn,th){return nn.r0*(1+0.24*Math.sin(3*th+nn.ph[0])+0.14*Math.sin(5*th+nn.ph[1])+0.08*Math.sin(7*th+nn.ph[2]));}
+  // graded membership 0..1: full inside the core, fading smoothly to 0 past the ragged edge
+  function nicheInf(nn,cx,cy){var dx=cx-nn.x,dy=cy-nn.y,d=Math.hypot(dx,dy),R=nicheR(nn,Math.atan2(dy,dx));
+    var Rin=R*0.5,Rout=R*1.16; if(d<=Rin)return 1; if(d>=Rout)return 0; var t=(Rout-d)/(Rout-Rin); return t*t*(3-2*t);}
   var GEO=(function(){
     var ex=W/2, ey=H/2+4, erx=W/2-14, ery=H/2-16;
-    var A={x:W*0.30,y:H*0.42,r:W*0.145}, B={x:W*0.70,y:H*0.60,r:W*0.145};
+    var A={x:W*0.32,y:H*0.44,r0:W*0.145,ph:[0.9,2.1,4.0]};
+    var B={x:W*0.69,y:H*0.58,r0:W*0.135,ph:[2.4,0.7,5.1]};
+    var dith=mulberry32(24680); // fixed dither -> stable tissue architecture across sim seeds
     var sites=[],groups=[[],[],[]]; // 0 background, 1 niche A, 2 niche B
     for(var row=0;row*CELL<H;row++)for(var col=0;col*CELL<W;col++){
       var cx=col*CELL+CELL/2, cy=row*CELL+CELL/2;
       if(((cx-ex)/erx)*((cx-ex)/erx)+((cy-ey)/ery)*((cy-ey)/ery)>1) continue;
-      var dA=Math.hypot(cx-A.x,cy-A.y), dB=Math.hypot(cx-B.x,cy-B.y);
-      var reg=dA<=A.r?1:(dB<=B.r?2:0);
+      var ia=nicheInf(A,cx,cy), ib=nicheInf(B,cx,cy), reg=0;
+      // graded (dithered) membership: a cell joins a niche with prob = its influence,
+      // so the margin thins out into background instead of a hard circular edge.
+      if(ia>0 && dith()<ia) reg=1; else if(ib>0 && dith()<ib) reg=2;
       groups[reg].push(sites.length);
       sites.push({x:col*CELL,y:row*CELL,reg:reg});
     }
     return {ex:ex,ey:ey,erx:erx,ery:ery,A:A,B:B,sites:sites,groups:groups};
   })();
+  function blobPath(nn){var d='';for(var a=0;a<=360;a+=8){var th=a*Math.PI/180,R=nicheR(nn,th);
+    d+=(a?' L':'M')+(nn.x+R*Math.cos(th)).toFixed(1)+','+(nn.y+R*Math.sin(th)).toFixed(1);}return d+' Z';}
 
   function simulate(seed,sA){
     var rng=mulberry32(seed>>>0), sites=GEO.sites, n=sites.length, groups=GEO.groups;
@@ -197,9 +209,10 @@
       svg.appendChild(el('rect',{x:s.x,y:s.y,width:CELL-0.5,height:CELL-0.5,fill:cellColor(snap[i]),rx:0.4}));}
     // niche outlines + badges
     function niche(nn,col,lab){
-      svg.appendChild(el('circle',{cx:nn.x,cy:nn.y,r:nn.r,fill:'none',stroke:col,'stroke-width':2,'stroke-dasharray':'5 3'}));
-      svg.appendChild(el('circle',{cx:nn.x,cy:nn.y-nn.r,r:9,fill:col}));
-      var t=el('text',{x:nn.x,y:nn.y-nn.r+3.5,'font-size':11,fill:'#fff','text-anchor':'middle','font-weight':'bold'});t.textContent=lab;svg.appendChild(t);
+      svg.appendChild(el('path',{d:blobPath(nn),fill:'none',stroke:col,'stroke-width':1.6,'stroke-dasharray':'5 4','stroke-opacity':0.5}));
+      var by=nn.y-nn.r0*0.86;
+      svg.appendChild(el('circle',{cx:nn.x,cy:by,r:9,fill:col}));
+      var t=el('text',{x:nn.x,y:by+3.5,'font-size':11,fill:'#fff','text-anchor':'middle','font-weight':'bold'});t.textContent=lab;svg.appendChild(t);
     }
     niche(GEO.A,c.amp,'A'); niche(GEO.B,c.nb,'B');
     document.getElementById('map-sub').textContent="bird's-eye · niche A selected, niche B + background neutral · division "+state.div;
