@@ -13,6 +13,6 @@
   description: "Archived code and resources release for the ChIP-seq analysis pipeline supporting Koeber et al., Nature (2026)."
 
 - name: "SOX2 / SOX9 ChIP-seq — UCSC Genome Browser"
-  url: "https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr7%3A92616503%2D92824990&hgsid=4133389879_7Ddt13A5XAGrUaOz2t9u51ms30VC"
+  url: "https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr7%3A92616503%2D92824990&hgsid=4137584971_G6nsjbI41RRuTHnxWrvrJFaUuFTc"
   source: "UCSC"
   description: "SOX2 and SOX9 ChIP-seq tracks in the UCSC Genome Browser (hg38, chr7:92,616,503–92,824,990)."
