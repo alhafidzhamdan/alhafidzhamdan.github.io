@@ -184,12 +184,19 @@ a:hover { color: var(--accent-soft); text-decoration: underline; }
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.12rem 0.7rem;
 }
-.social .cv-pill:hover { background: var(--accent); color: #fff; text-decoration: none; }
+.social .cv-pill:hover,
+.social .cv-pill:focus-visible,
+.social .cv-pill:active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
 
 .bio p { margin: 0 0 1rem; }
 .cta {
