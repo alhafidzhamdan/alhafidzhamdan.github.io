@@ -17,6 +17,7 @@ author:
   affiliation: "Cancer Research UK Scotland Centre, Edinburgh"
   email: alhafidz.hamdan@ed.ac.uk          # shown in the Contact section
   photo: /assets/img/profile.jpg           # your headshot
+  cv: ""                                   # e.g. /assets/cv/alhafidz-hamdan-cv.pdf — the "CV" button appears once this is set
 
 # Social / academic links (leave a value blank to hide that icon) -------------
 social:
