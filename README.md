@@ -32,14 +32,6 @@ metrics and collaborative papers).
 [`.github/workflows/update-scholar.yml`](.github/workflows/update-scholar.yml)
 via SerpApi. Edit it by hand only to override between runs.
 
-## ecDNA simulations
-
-`simulations/` is a self-contained subsite (see its own
-[`README`](simulations/README.md)) — a tabbed hub embedding five interactive
-scenarios of ecDNA birth and evolution, built to accompany
-[EpiTracer](https://github.com/alhafidzhamdan/EpiTracer). Live at
-[/simulations/](https://alhafidzhamdan.github.io/simulations/).
-
 ## Preview locally (optional)
 
 ```bash
