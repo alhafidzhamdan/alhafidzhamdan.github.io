@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alhafidzhamdan.github.io/sitemap.xml

@@ -25,6 +25,32 @@
   <meta name="twitter:description" content="{{ site.description }}">
   <meta name="twitter:image" content="{{ '/assets/img/og-card.png' | absolute_url }}">
 
+  <!-- Structured data (schema.org Person) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{{ site.author.name }}",
+    "honorificSuffix": "{{ site.author.credentials }}",
+    "url": "{{ site.url }}{{ site.baseurl }}/",
+    "image": "{{ site.author.photo | absolute_url }}",
+    "jobTitle": "{{ site.author.role }}",
+    "worksFor": [
+      { "@type": "Organization", "name": "University of Edinburgh", "url": "https://www.ed.ac.uk/" },
+      { "@type": "MedicalOrganization", "name": "NHS Lothian" }
+    ],
+    "affiliation": { "@type": "Organization", "name": "Cancer Research UK Scotland Centre" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Edinburgh" },
+    "knowsAbout": ["cancer genomics", "genomic instability", "extrachromosomal DNA (ecDNA)", "somatic and cancer evolution", "spatial multi-omics", "pathology"],
+    "sameAs": [
+      "{{ site.social.scholar }}",
+      "{{ site.social.orcid }}",
+      "{{ site.social.github }}",
+      "{{ site.social.twitter }}"
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">

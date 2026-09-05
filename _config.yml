@@ -36,6 +36,8 @@ baseurl: ""
 # Build settings -------------------------------------------------------------
 markdown: kramdown
 permalink: pretty
+plugins:
+  - jekyll-sitemap                         # auto-generates /sitemap.xml (bundled with github-pages)
 exclude:
   - README.md
   - Gemfile
