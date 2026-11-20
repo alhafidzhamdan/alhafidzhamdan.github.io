@@ -13,6 +13,12 @@
 # Scholar profile URL to _config.yml and tell me if you'd like preprints added.
 # ---------------------------------------------------------------------------
 
+- title: "Pervasive chromothripsis drives pleural mesothelioma to impact gene function and patient survival"
+  authors: "Sherwood K, Aitken S, Silk R, Halachev M, Fox S, Bendixsen DP, Hamdan A, Blyth KG, Semple CA"
+  venue: "bioRxiv (preprint)"
+  year: 2026
+  doi: "10.64898/2026.11.04.762854"
+
 - title: "Synthetic super-enhancers enable precision viral immunotherapy"
   authors: "Koeber U, Matjusaitis M, Alfazema N, Furlong K, Wang Z, White R, Hamdan A, Dewari P, Morisse G, Navarette M, Willis R, Wang J, Clark MP, Jacinto de Sousa C, Hong HI, Sheraz S, Southgate B, Cholewa-Waclaw J, Gogolok S, Morrison GM, Cancino FG, Robertson F, Williams A, Rosser SJ, Brennan PM, Sieger D, Soufi A, Quezada SA, Pollard SM"
   venue: "Nature"
